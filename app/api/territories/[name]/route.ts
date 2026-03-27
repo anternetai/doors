@@ -42,9 +42,9 @@ export async function GET(
   }
 
   const { data: doors } = await supabase
-    .from('territory_doors')
+    .from('doors_territory_doors')
     .select('*')
-    .eq('neighborhood', territory.id)
+    .eq('territory_id', territory.id)
     .eq('user_id', user.id)
 
   const typedDoors = (doors as TerritoryDoor[]) ?? []
@@ -126,9 +126,9 @@ export async function DELETE(
 
   // Cascade delete doors first
   await supabase
-    .from('territory_doors')
+    .from('doors_territory_doors')
     .delete()
-    .eq('neighborhood', territory.id)
+    .eq('territory_id', territory.id)
     .eq('user_id', user.id)
 
   const { error } = await supabase

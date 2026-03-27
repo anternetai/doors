@@ -39,9 +39,9 @@ export async function GET(
   }
 
   const { data: doors, error } = await supabase
-    .from('territory_doors')
+    .from('doors_territory_doors')
     .select('*')
-    .eq('neighborhood', territory.id)
+    .eq('territory_id', territory.id)
     .eq('user_id', user.id)
     .order('created_at', { ascending: true })
 
@@ -96,10 +96,10 @@ export async function POST(
   }
 
   const { data: door, error } = await supabase
-    .from('territory_doors')
+    .from('doors_territory_doors')
     .insert({
       user_id: user.id,
-      neighborhood: territory.id,
+      territory_id: territory.id,
       lat,
       lng,
       visits: visit ? [visit] : [],

@@ -12,7 +12,7 @@ export interface DoorVisit {
 export interface TerritoryDoor {
   id: string
   user_id: string
-  neighborhood: string
+  territory_id: string
   lat: number
   lng: number
   visits: DoorVisit[]

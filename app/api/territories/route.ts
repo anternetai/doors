@@ -31,15 +31,15 @@ export async function GET() {
   let allDoors: TerritoryDoor[] = []
   if (territoryIds.length > 0) {
     const { data: doors } = await supabase
-      .from('territory_doors')
+      .from('doors_territory_doors')
       .select('*')
-      .in('neighborhood', territoryIds)
+      .in('territory_id', territoryIds)
       .eq('user_id', user.id)
     allDoors = (doors as TerritoryDoor[]) ?? []
   }
 
   const result = (territories ?? []).map((t) => {
-    const doors = allDoors.filter((d) => d.neighborhood === t.id)
+    const doors = allDoors.filter((d) => d.territory_id === t.id)
     const kpis = computeKpis(doors)
     return { ...t, kpis }
   })

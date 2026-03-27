@@ -26,7 +26,7 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 
   // Fetch existing door to append visit
   const { data: existingDoor, error: fetchErr } = await supabase
-    .from('territory_doors')
+    .from('doors_territory_doors')
     .select('*')
     .eq('id', id)
     .eq('user_id', user.id)
@@ -48,7 +48,7 @@ export async function PATCH(request: NextRequest, { params }: Context) {
   }
 
   const { data, error } = await supabase
-    .from('territory_doors')
+    .from('doors_territory_doors')
     .update({
       visits: updatedVisits,
       status: visitToStatus(visit),
@@ -84,7 +84,7 @@ export async function DELETE(
   }
 
   const { error } = await supabase
-    .from('territory_doors')
+    .from('doors_territory_doors')
     .delete()
     .eq('id', id)
     .eq('user_id', user.id)
