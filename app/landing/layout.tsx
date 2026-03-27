@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Doors — Track Every Door.',
+  title: 'Doors — The tracker built for reps who knock.',
   description:
-    'The door-to-door sales tracker built by a rep who knocks every day. Map your territories. Log every door. Close more deals.',
+    'Log contacts, map territories, and close more deals — without leaving the porch. Free to start, no credit card, no annual contract.',
   openGraph: {
-    title: 'Doors — Track Every Door.',
+    title: 'Doors — The tracker built for reps who knock.',
     description:
-      'Map your territories. Log every door. Know your numbers. Built for D2D reps who knock all day.',
+      'Log contacts, map territories, and close more deals without leaving the porch. Free forever. No setup fee. No annual contract.',
     type: 'website',
   },
 }
@@ -17,6 +17,6 @@ export default function LandingLayout({
 }: {
   children: React.ReactNode
 }) {
-  // No bottom nav — this is a marketing page, not the app
+  // No app nav — this is a marketing page
   return <>{children}</>
 }
