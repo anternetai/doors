@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { X, ChevronRight } from 'lucide-react'
+import { PhotoCapture } from '@/components/photo-capture'
 import type { DoorVisit } from '@/lib/types'
 
 interface Props {
@@ -35,6 +36,7 @@ export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props)
   // Step 4
   const [notes, setNotes] = useState('')
   const [revenue, setRevenue] = useState('')
+  const [photo, setPhoto] = useState<string | null>(null)
 
   async function handleSave() {
     setSaving(true)
@@ -47,6 +49,7 @@ export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props)
       not_interested: notInterested,
       notes: notes.trim() || undefined,
       revenue: closed && revenue ? parseFloat(revenue) : undefined,
+      photo: photo ?? undefined,
     }
     await onSave(visit)
     setSaving(false)
@@ -197,9 +200,11 @@ export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props)
           </div>
         )}
 
-        {/* Step 4: Notes + revenue */}
+        {/* Step 4: Photo + Notes + revenue */}
         {step === 4 && (
           <div className="space-y-4">
+            <PhotoCapture photo={photo} onChange={setPhoto} />
+
             <div>
               <label className="block text-xs text-muted-foreground mb-1">Notes (optional)</label>
               <textarea

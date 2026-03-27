@@ -4,6 +4,8 @@ import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { Plus, Trash2, MapPin, TrendingUp } from 'lucide-react'
 import { DoorsNav } from '@/components/doors-nav'
+import { OnboardingFlow } from '@/components/onboarding-flow'
+import { DailySummary } from '@/components/daily-summary'
 import type { TerritoryWithKpis } from '@/lib/types'
 
 export default function TerritoriesPage() {
@@ -83,6 +85,16 @@ export default function TerritoriesPage() {
     return `$${n.toFixed(0)}`
   }
 
+  // Show onboarding when we know for sure there are 0 territories (not loading, no error)
+  if (!loading && !error && territories.length === 0) {
+    return (
+      <>
+        <OnboardingFlow onCreated={fetchTerritories} />
+        <DoorsNav />
+      </>
+    )
+  }
+
   return (
     <div className="flex min-h-screen flex-col pb-20">
       {/* Header */}
@@ -103,6 +115,11 @@ export default function TerritoriesPage() {
       </header>
 
       <main className="flex-1 px-4 py-4">
+        {/* Daily summary — only when territories exist */}
+        {!loading && !error && territories.length > 0 && (
+          <DailySummary />
+        )}
+
         {/* New Territory Form */}
         {showNewForm && (
           <form

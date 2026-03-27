@@ -1,10 +1,11 @@
 'use client'
 
 import { use, useEffect, useState, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowLeft, ChevronDown, ChevronUp, Info, CheckCircle, AlertTriangle, X, Trash2 } from 'lucide-react'
 import { TerritoryMap } from '@/components/territory-map'
 import { DoorLogOverlay } from '@/components/door-log-overlay'
+import { SessionTimer } from '@/components/session-timer'
 import type { TerritoryDoor, TerritoryKpis, Recommendation, DoorVisit } from '@/lib/types'
 
 interface TerritoryDetail {
@@ -36,6 +37,8 @@ export default function TerritoryDetailPage({
   const { name: encodedName } = use(params)
   const name = decodeURIComponent(encodedName)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const showHint = searchParams.get('hint') === '1'
 
   const [territory, setTerritory] = useState<TerritoryDetail | null>(null)
   const [doors, setDoors] = useState<TerritoryDoor[]>([])
@@ -201,6 +204,21 @@ export default function TerritoryDetailPage({
           </div>
         ))}
       </div>
+
+      {/* First-time hint banner */}
+      {showHint && (
+        <div className="mx-4 mt-2 mb-1 flex items-center gap-2 rounded-xl border border-[#22c55e]/30 bg-[#1a2e1a]/60 px-4 py-2.5 text-xs text-[#22c55e]">
+          <Info size={13} className="shrink-0" />
+          Tap the map to log your first door
+        </div>
+      )}
+
+      {/* Session timer */}
+      <SessionTimer
+        territoryName={territory.name}
+        doorsKnocked={kpis.total_doors}
+        doorsAnswered={kpis.doors_answered}
+      />
 
       {/* Map — takes remaining space */}
       <div className="relative flex-1 min-h-0">

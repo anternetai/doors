@@ -33,8 +33,22 @@ export default function SignupPage() {
       return
     }
 
-    setDone(true)
-    setLoading(false)
+    // Auto-sign in after signup (skip email confirmation for now)
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (signInError) {
+      // If auto-signin fails (email confirmation required), show the check-email screen
+      setDone(true)
+      setLoading(false)
+      return
+    }
+
+    // Signed in — go to dashboard
+    router.push('/')
+    router.refresh()
   }
 
   if (done) {

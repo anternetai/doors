@@ -7,6 +7,7 @@ export interface DoorVisit {
   not_interested?: boolean
   notes?: string
   revenue?: number
+  photo?: string
 }
 
 export interface TerritoryDoor {
