@@ -8,6 +8,7 @@ export interface DoorVisit {
   notes?: string
   revenue?: number
   photo?: string
+  audioUrl?: string
 }
 
 export interface TerritoryDoor {

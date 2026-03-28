@@ -49,6 +49,8 @@
   --color-doors-green: #1a2e1a;
   --color-doors-green-light: #2d5a2d;
   --color-doors-green-bright: #22c55e;
+  --color-doors-orange: #FF6B35;
+  --color-doors-orange-light: #ff8c5a;
 }
 
 /* Dark theme as default */
@@ -59,19 +61,19 @@
   --card-foreground: oklch(0.96 0 0);
   --popover: oklch(0.14 0 0);
   --popover-foreground: oklch(0.96 0 0);
-  --primary: #22c55e;
-  --primary-foreground: oklch(0.10 0 0);
+  --primary: #FF6B35;
+  --primary-foreground: #0a0a0a;
   --secondary: oklch(0.20 0 0);
   --secondary-foreground: oklch(0.96 0 0);
   --muted: oklch(0.20 0 0);
   --muted-foreground: oklch(0.60 0 0);
-  --accent: #1a2e1a;
-  --accent-foreground: #22c55e;
+  --accent: #1f1510;
+  --accent-foreground: #FF6B35;
   --destructive: oklch(0.65 0.22 27);
   --border: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 10%);
-  --ring: #22c55e;
-  --chart-1: #22c55e;
+  --ring: #FF6B35;
+  --chart-1: #FF6B35;
   --chart-2: oklch(0.60 0 0);
   --chart-3: oklch(0.45 0 0);
   --chart-4: oklch(0.35 0 0);
@@ -79,12 +81,12 @@
   --radius: 0.625rem;
   --sidebar: oklch(0.12 0 0);
   --sidebar-foreground: oklch(0.96 0 0);
-  --sidebar-primary: #22c55e;
-  --sidebar-primary-foreground: oklch(0.10 0 0);
-  --sidebar-accent: #1a2e1a;
-  --sidebar-accent-foreground: #22c55e;
+  --sidebar-primary: #FF6B35;
+  --sidebar-primary-foreground: #0a0a0a;
+  --sidebar-accent: #1f1510;
+  --sidebar-accent-foreground: #FF6B35;
   --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: #22c55e;
+  --sidebar-ring: #FF6B35;
 }
 
 /* Keep .dark class for explicit dark-mode toggling */
@@ -95,26 +97,26 @@
   --card-foreground: oklch(0.96 0 0);
   --popover: oklch(0.14 0 0);
   --popover-foreground: oklch(0.96 0 0);
-  --primary: #22c55e;
-  --primary-foreground: oklch(0.10 0 0);
+  --primary: #FF6B35;
+  --primary-foreground: #0a0a0a;
   --secondary: oklch(0.20 0 0);
   --secondary-foreground: oklch(0.96 0 0);
   --muted: oklch(0.20 0 0);
   --muted-foreground: oklch(0.60 0 0);
-  --accent: #1a2e1a;
-  --accent-foreground: #22c55e;
+  --accent: #1f1510;
+  --accent-foreground: #FF6B35;
   --destructive: oklch(0.65 0.22 27);
   --border: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 10%);
-  --ring: #22c55e;
+  --ring: #FF6B35;
   --sidebar: oklch(0.12 0 0);
   --sidebar-foreground: oklch(0.96 0 0);
-  --sidebar-primary: #22c55e;
-  --sidebar-primary-foreground: oklch(0.10 0 0);
-  --sidebar-accent: #1a2e1a;
-  --sidebar-accent-foreground: #22c55e;
+  --sidebar-primary: #FF6B35;
+  --sidebar-primary-foreground: #0a0a0a;
+  --sidebar-accent: #1f1510;
+  --sidebar-accent-foreground: #FF6B35;
   --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: #22c55e;
+  --sidebar-ring: #FF6B35;
 }
 
 /* Light mode */
@@ -125,26 +127,26 @@
   --card-foreground: oklch(0.12 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.12 0 0);
-  --primary: #16a34a;
+  --primary: #ea580c;
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.94 0 0);
   --secondary-foreground: oklch(0.12 0 0);
   --muted: oklch(0.94 0 0);
   --muted-foreground: oklch(0.45 0 0);
-  --accent: #dcfce7;
-  --accent-foreground: #14532d;
+  --accent: #fff7ed;
+  --accent-foreground: #7c2d12;
   --destructive: oklch(0.55 0.22 27);
   --border: oklch(0 0 0 / 10%);
   --input: oklch(0 0 0 / 8%);
-  --ring: #16a34a;
+  --ring: #ea580c;
   --sidebar: oklch(0.97 0 0);
   --sidebar-foreground: oklch(0.12 0 0);
-  --sidebar-primary: #16a34a;
+  --sidebar-primary: #ea580c;
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: #dcfce7;
-  --sidebar-accent-foreground: #14532d;
+  --sidebar-accent: #fff7ed;
+  --sidebar-accent-foreground: #7c2d12;
   --sidebar-border: oklch(0 0 0 / 10%);
-  --sidebar-ring: #16a34a;
+  --sidebar-ring: #ea580c;
 }
 
 /* Sun mode — maximum contrast for outdoor use in direct sunlight */
@@ -155,26 +157,26 @@
   --card-foreground: #000000;
   --popover: #ffffff;
   --popover-foreground: #000000;
-  --primary: #15803d;
+  --primary: #c2410c;
   --primary-foreground: #ffffff;
   --secondary: #f0f0f0;
   --secondary-foreground: #000000;
   --muted: #e5e5e5;
   --muted-foreground: #404040;
-  --accent: #bbf7d0;
-  --accent-foreground: #052e16;
+  --accent: #ffedd5;
+  --accent-foreground: #431407;
   --destructive: #dc2626;
   --border: #000000;
   --input: #d4d4d4;
-  --ring: #15803d;
+  --ring: #c2410c;
   --sidebar: #ffffff;
   --sidebar-foreground: #000000;
-  --sidebar-primary: #15803d;
+  --sidebar-primary: #c2410c;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #bbf7d0;
-  --sidebar-accent-foreground: #052e16;
+  --sidebar-accent: #ffedd5;
+  --sidebar-accent-foreground: #431407;
   --sidebar-border: #000000;
-  --sidebar-ring: #15803d;
+  --sidebar-ring: #c2410c;
 }
 
 /* Sun mode overrides — extra bold borders, thick map pins, no subtle anything */

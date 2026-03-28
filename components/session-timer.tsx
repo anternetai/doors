@@ -118,9 +118,9 @@ export function SessionTimer({ territoryName, doorsKnocked, doorsAnswered }: Pro
 
   if (summary) {
     return (
-      <div className="mx-4 mb-3 rounded-xl border border-[#22c55e]/30 bg-[#1a2e1a]/60 p-4">
+      <div className="mx-4 mb-3 rounded-xl border border-[#FF6B35]/30 bg-[#1f1510]/60 p-4">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-xs font-semibold text-[#22c55e] uppercase tracking-wide">Session Summary</p>
+          <p className="text-xs font-semibold text-[#FF6B35] uppercase tracking-wide">Session Summary</p>
           <button
             onClick={handleDismissSummary}
             className="text-xs text-muted-foreground underline"
@@ -142,7 +142,7 @@ export function SessionTimer({ territoryName, doorsKnocked, doorsAnswered }: Pro
             <p className="text-xs text-muted-foreground mt-0.5">Contacts</p>
           </div>
           <div>
-            <p className="text-lg font-bold text-[#22c55e]">
+            <p className="text-lg font-bold text-[#FF6B35]">
               {Math.round(summary.contactRate * 100)}%
             </p>
             <p className="text-xs text-muted-foreground mt-0.5">Contact</p>
@@ -155,9 +155,9 @@ export function SessionTimer({ territoryName, doorsKnocked, doorsAnswered }: Pro
   if (session) {
     const sessionDoors = Math.max(0, doorsKnocked - doorsAtStart)
     return (
-      <div className="mx-4 mb-3 flex items-center gap-3 rounded-xl border border-[#22c55e]/40 bg-[#1a2e1a]/60 px-4 py-2.5">
-        <Clock size={14} className="text-[#22c55e] shrink-0" />
-        <span className="font-mono text-sm font-bold text-[#22c55e] tabular-nums">
+      <div className="mx-4 mb-3 flex items-center gap-3 rounded-xl border border-[#FF6B35]/40 bg-[#1f1510]/60 px-4 py-2.5">
+        <Clock size={14} className="text-[#FF6B35] shrink-0" />
+        <span className="font-mono text-sm font-bold text-[#FF6B35] tabular-nums">
           {formatDuration(elapsed)}
         </span>
         <span className="text-xs text-muted-foreground">
@@ -180,7 +180,7 @@ export function SessionTimer({ territoryName, doorsKnocked, doorsAnswered }: Pro
     <div className="mx-4 mb-3">
       <button
         onClick={handleStart}
-        className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-secondary py-2.5 text-sm font-medium text-muted-foreground hover:border-[#22c55e]/40 hover:text-foreground transition-colors"
+        className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-secondary py-2.5 text-sm font-medium text-muted-foreground hover:border-[#FF6B35]/40 hover:text-foreground transition-colors"
       >
         <Play size={14} className="fill-current" />
         Start Knocking

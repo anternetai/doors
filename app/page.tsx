@@ -100,14 +100,14 @@ export default function TerritoriesPage() {
       {/* Header */}
       <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-background/95 px-4 py-4 backdrop-blur">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1a2e1a] border border-[#22c55e]/30">
-            <span className="text-sm font-bold text-[#22c55e]">D</span>
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1f1510] border border-[#FF6B35]/30">
+            <span className="text-sm font-bold text-[#FF6B35]">D</span>
           </div>
           <h1 className="text-lg font-bold">Territories</h1>
         </div>
         <button
           onClick={() => setShowNewForm((v) => !v)}
-          className="flex items-center gap-1.5 rounded-lg bg-[#22c55e] px-3 py-2 text-sm font-semibold text-[#0a0a0a] transition-opacity hover:opacity-90"
+          className="flex items-center gap-1.5 rounded-lg bg-[#FF6B35] px-3 py-2 text-sm font-semibold text-[#0a0a0a] transition-opacity hover:opacity-90"
         >
           <Plus size={16} />
           New
@@ -124,9 +124,9 @@ export default function TerritoriesPage() {
         {showNewForm && (
           <form
             onSubmit={handleCreate}
-            className="mb-4 rounded-xl border border-[#22c55e]/30 bg-[#1a2e1a]/40 p-4 space-y-3"
+            className="mb-4 rounded-xl border border-[#FF6B35]/30 bg-[#1f1510]/40 p-4 space-y-3"
           >
-            <h2 className="text-sm font-semibold text-[#22c55e]">New Territory</h2>
+            <h2 className="text-sm font-semibold text-[#FF6B35]">New Territory</h2>
             <div>
               <label className="block text-xs text-muted-foreground mb-1">Name *</label>
               <input
@@ -135,7 +135,7 @@ export default function TerritoriesPage() {
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
                 placeholder="e.g. Oakwood Heights"
-                className="w-full rounded-lg border border-border bg-secondary px-3 py-2.5 text-sm text-foreground placeholder-muted-foreground focus:border-[#22c55e] focus:outline-none focus:ring-1 focus:ring-[#22c55e]"
+                className="w-full rounded-lg border border-border bg-secondary px-3 py-2.5 text-sm text-foreground placeholder-muted-foreground focus:border-[#FF6B35] focus:outline-none focus:ring-1 focus:ring-[#FF6B35]"
               />
             </div>
             <div>
@@ -145,14 +145,14 @@ export default function TerritoriesPage() {
                 value={newAddress}
                 onChange={(e) => setNewAddress(e.target.value)}
                 placeholder="e.g. 123 Main St, Charlotte, NC"
-                className="w-full rounded-lg border border-border bg-secondary px-3 py-2.5 text-sm text-foreground placeholder-muted-foreground focus:border-[#22c55e] focus:outline-none focus:ring-1 focus:ring-[#22c55e]"
+                className="w-full rounded-lg border border-border bg-secondary px-3 py-2.5 text-sm text-foreground placeholder-muted-foreground focus:border-[#FF6B35] focus:outline-none focus:ring-1 focus:ring-[#FF6B35]"
               />
             </div>
             <div className="flex gap-2">
               <button
                 type="submit"
                 disabled={creating}
-                className="flex-1 rounded-lg bg-[#22c55e] py-2.5 text-sm font-semibold text-[#0a0a0a] disabled:opacity-50"
+                className="flex-1 rounded-lg bg-[#FF6B35] py-2.5 text-sm font-semibold text-[#0a0a0a] disabled:opacity-50"
               >
                 {creating ? 'Creating…' : 'Create Territory'}
               </button>
@@ -196,7 +196,7 @@ export default function TerritoriesPage() {
             <div key={t.id} className="relative group">
               <Link
                 href={`/territories/${encodeURIComponent(t.name)}`}
-                className="block rounded-xl border border-border bg-card p-4 transition-colors hover:border-[#22c55e]/40 active:bg-secondary"
+                className="block rounded-xl border border-border bg-card p-4 transition-colors hover:border-[#FF6B35]/40 active:bg-secondary"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div>
@@ -225,7 +225,7 @@ export default function TerritoriesPage() {
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground mb-0.5">Close</p>
-                    <p className="text-base font-bold text-[#22c55e]">
+                    <p className="text-base font-bold text-[#FF6B35]">
                       {t.kpis.doors_pitched > 0 ? fmtPct(t.kpis.close_rate) : '—'}
                     </p>
                   </div>

@@ -2,10 +2,11 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Map, Settings } from 'lucide-react'
+import { Map, Trophy, Settings } from 'lucide-react'
 
 const navItems = [
   { href: '/', icon: Map, label: 'Territories' },
+  { href: '/leaderboard', icon: Trophy, label: 'Leaderboard' },
   { href: '/settings', icon: Settings, label: 'Settings' },
 ]
 
@@ -25,14 +26,14 @@ export function DoorsNav() {
               href={href}
               className={`flex flex-1 flex-col items-center justify-center gap-1 py-3 text-xs font-medium transition-colors ${
                 isActive
-                  ? 'text-[#22c55e]'
+                  ? 'text-[#FF6B35]'
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               <Icon
                 size={22}
                 strokeWidth={isActive ? 2.5 : 1.8}
-                className={isActive ? 'text-[#22c55e]' : ''}
+                className={isActive ? 'text-[#FF6B35]' : ''}
               />
               {label}
             </Link>

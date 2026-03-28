@@ -45,8 +45,8 @@ export function OnboardingFlow({ onCreated }: Props) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-6 pb-20">
       {/* Brand mark */}
-      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1a2e1a] border border-[#22c55e]/30">
-        <DoorOpen size={32} className="text-[#22c55e]" />
+      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1f1510] border border-[#FF6B35]/30">
+        <DoorOpen size={32} className="text-[#FF6B35]" />
       </div>
 
       {/* Welcome copy */}
@@ -56,8 +56,8 @@ export function OnboardingFlow({ onCreated }: Props) {
       </p>
 
       {/* Territory creation form */}
-      <div className="w-full max-w-sm rounded-2xl border border-[#22c55e]/30 bg-[#1a2e1a]/40 p-6">
-        <h2 className="text-base font-semibold text-[#22c55e] mb-4">Create your first territory</h2>
+      <div className="w-full max-w-sm rounded-2xl border border-[#FF6B35]/30 bg-[#1f1510]/40 p-6">
+        <h2 className="text-base font-semibold text-[#FF6B35] mb-4">Create your first territory</h2>
 
         <form onSubmit={handleCreate} className="space-y-4">
           <div>
@@ -69,7 +69,7 @@ export function OnboardingFlow({ onCreated }: Props) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Oakwood Heights"
-              className="w-full rounded-xl border border-border bg-secondary px-4 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#22c55e] focus:outline-none focus:ring-1 focus:ring-[#22c55e]"
+              className="w-full rounded-xl border border-border bg-secondary px-4 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#FF6B35] focus:outline-none focus:ring-1 focus:ring-[#FF6B35]"
             />
           </div>
 
@@ -82,7 +82,7 @@ export function OnboardingFlow({ onCreated }: Props) {
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               placeholder="e.g. 123 Main St, Charlotte, NC"
-              className="w-full rounded-xl border border-border bg-secondary px-4 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#22c55e] focus:outline-none focus:ring-1 focus:ring-[#22c55e]"
+              className="w-full rounded-xl border border-border bg-secondary px-4 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#FF6B35] focus:outline-none focus:ring-1 focus:ring-[#FF6B35]"
             />
           </div>
 
@@ -93,7 +93,7 @@ export function OnboardingFlow({ onCreated }: Props) {
           <button
             type="submit"
             disabled={creating || !name.trim()}
-            className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#22c55e] py-3.5 text-sm font-semibold text-[#0a0a0a] disabled:opacity-50 transition-opacity active:opacity-80"
+            className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#FF6B35] py-3.5 text-sm font-semibold text-[#0a0a0a] disabled:opacity-50 transition-opacity active:opacity-80"
           >
             {creating ? (
               'Creating…'
