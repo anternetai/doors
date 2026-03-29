@@ -19,7 +19,7 @@ export function DailySummary() {
   }, [])
 
   if (loading) {
-    return <div className="mb-4 h-20 animate-pulse rounded-xl bg-card" />
+    return <div className="mb-4 h-24 animate-pulse rounded-2xl bg-card/60" />
   }
 
   if (!stats) return null
@@ -28,13 +28,13 @@ export function DailySummary() {
 
   return (
     <>
-      <div className="mb-4 rounded-xl border border-border bg-card px-4 py-3">
-        <div className="flex items-center justify-between mb-2.5">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Today</p>
+      <div className="mb-4 rounded-2xl border border-white/[0.06] bg-[#111118]/80 px-5 py-4 backdrop-blur-sm">
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest">Today</p>
           {hasActivity && (
             <button
               onClick={() => setShowShare(true)}
-              className="flex items-center gap-1 text-xs text-muted-foreground hover:text-[#FF6B35] transition-colors"
+              className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-[#FF6B35] transition-colors"
             >
               <Share2 size={12} />
               Share
@@ -76,10 +76,10 @@ export function DailySummary() {
 function StatCell({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
     <div className="text-center">
-      <p className={`text-xl font-bold ${accent ? 'text-[#FF6B35]' : 'text-foreground'}`}>
+      <p className={`text-2xl font-bold heading-tighter ${accent ? 'text-[#FF6B35]' : 'text-foreground'}`}>
         {value}
       </p>
-      <p className="text-xs text-muted-foreground mt-0.5">{label}</p>
+      <p className="text-[11px] text-muted-foreground mt-1">{label}</p>
     </div>
   )
 }

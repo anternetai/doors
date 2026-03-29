@@ -28,23 +28,23 @@ export default function SettingsPage() {
 
   return (
     <div className="flex min-h-screen flex-col pb-20">
-      <header className="sticky top-0 z-30 border-b border-border bg-background/95 px-4 py-4 backdrop-blur">
-        <h1 className="text-lg font-bold">Settings</h1>
+      <header className="sticky top-0 z-30 border-b border-border bg-background/90 px-4 py-4 backdrop-blur-xl">
+        <h1 className="text-lg font-bold heading-tight">Settings</h1>
       </header>
 
-      <main className="flex-1 px-4 py-6 space-y-4">
+      <main className="flex-1 px-4 py-6 space-y-3">
         {/* Account */}
-        <div className="rounded-xl border border-border bg-card p-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1f1510] border border-[#FF6B35]/30">
+        <div className="rounded-2xl border border-white/[0.06] bg-[#111118]/80 p-5 backdrop-blur-sm">
+          <div className="flex items-center gap-4">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#1f1510] border border-[#FF6B35]/25">
               <User size={18} className="text-[#FF6B35]" />
             </div>
             <div>
               <p className="text-sm font-medium text-foreground">Account</p>
               {loading ? (
-                <div className="h-3 w-40 animate-pulse rounded bg-muted mt-1" />
+                <div className="h-3 w-40 animate-pulse rounded bg-muted mt-1.5" />
               ) : (
-                <p className="text-xs text-muted-foreground">{email}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{email}</p>
               )}
             </div>
           </div>
@@ -53,19 +53,19 @@ export default function SettingsPage() {
         {/* Sign Out */}
         <button
           onClick={handleSignOut}
-          className="flex w-full items-center gap-3 rounded-xl border border-border bg-card p-4 text-left transition-colors hover:bg-destructive/10 hover:border-destructive/30"
+          className="flex w-full items-center gap-4 rounded-2xl border border-white/[0.06] bg-[#111118]/80 p-5 text-left transition-all hover:bg-destructive/5 hover:border-destructive/20 backdrop-blur-sm"
         >
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-destructive/15">
+          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-destructive/10 border border-destructive/15">
             <LogOut size={18} className="text-destructive" />
           </div>
           <div>
             <p className="text-sm font-medium text-foreground">Sign Out</p>
-            <p className="text-xs text-muted-foreground">Log out of your account</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Log out of your account</p>
           </div>
         </button>
 
         {/* App version */}
-        <p className="text-center text-xs text-muted-foreground pt-4">
+        <p className="text-center text-xs text-muted-foreground pt-6">
           Doors v1.0
         </p>
       </main>

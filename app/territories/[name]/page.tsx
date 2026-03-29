@@ -155,7 +155,7 @@ export default function TerritoryDetailPage({
       <div className="flex h-screen flex-col items-center justify-center gap-4 px-4">
         <p className="text-sm text-destructive">{error ?? 'Territory not found'}</p>
         <button
-          onClick={() => router.push('/')}
+          onClick={() => router.push('/dashboard')}
           className="text-sm text-[#FF6B35] underline"
         >
           Back to territories
@@ -169,23 +169,23 @@ export default function TerritoryDetailPage({
   return (
     <div className="flex h-screen flex-col overflow-hidden">
       {/* Header */}
-      <header className="flex items-center gap-3 border-b border-border bg-background/95 px-4 py-3 backdrop-blur z-30 shrink-0">
+      <header className="flex items-center gap-3 border-b border-border bg-background/95 px-4 py-3 backdrop-blur-xl z-30 shrink-0">
         <button
-          onClick={() => router.push('/')}
-          className="flex h-9 w-9 items-center justify-center rounded-lg bg-secondary text-muted-foreground"
+          onClick={() => router.push('/dashboard')}
+          className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/[0.06] text-muted-foreground hover:text-foreground transition-colors"
         >
           <ArrowLeft size={18} />
         </button>
         <div className="flex-1 min-w-0">
-          <h1 className="font-semibold truncate">{territory.name}</h1>
+          <h1 className="font-semibold truncate heading-tight">{territory.name}</h1>
           <p className="text-xs text-muted-foreground">
             {kpis.total_doors} door{kpis.total_doors !== 1 ? 's' : ''} · tap map to log
           </p>
         </div>
       </header>
 
-      {/* KPI row */}
-      <div className="flex gap-3 overflow-x-auto px-4 py-3 shrink-0 border-b border-border scrollbar-hide">
+      {/* KPI scroll row */}
+      <div className="flex gap-2.5 overflow-x-auto px-4 py-3 shrink-0 border-b border-border scrollbar-hide">
         {[
           { label: 'Doors', value: kpis.total_doors.toString(), accent: false },
           { label: 'Contact', value: kpis.total_doors > 0 ? fmtPct(kpis.contact_rate) : '—', accent: false },
@@ -195,19 +195,19 @@ export default function TerritoryDetailPage({
         ].map(({ label, value, accent }) => (
           <div
             key={label}
-            className="flex shrink-0 flex-col items-center rounded-xl bg-card px-4 py-2.5 min-w-[72px]"
+            className="flex shrink-0 flex-col items-center rounded-xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm px-4 py-3 min-w-[72px]"
           >
-            <span className={`text-xl font-bold ${accent ? 'text-[#FF6B35]' : 'text-foreground'}`}>
+            <span className={`text-2xl font-bold heading-tighter ${accent ? 'text-[#FF6B35]' : 'text-foreground'}`}>
               {value}
             </span>
-            <span className="text-xs text-muted-foreground mt-0.5">{label}</span>
+            <span className="text-[11px] text-muted-foreground mt-1">{label}</span>
           </div>
         ))}
       </div>
 
       {/* First-time hint banner */}
       {showHint && (
-        <div className="mx-4 mt-2 mb-1 flex items-center gap-2 rounded-xl border border-[#FF6B35]/30 bg-[#1f1510]/60 px-4 py-2.5 text-xs text-[#FF6B35]">
+        <div className="mx-4 mt-2 mb-1 flex items-center gap-2 rounded-xl border border-[#FF6B35]/25 bg-[#1f1510]/50 px-4 py-2.5 text-xs text-[#FF6B35]">
           <Info size={13} className="shrink-0" />
           Tap the map to log your first door
         </div>
@@ -233,11 +233,11 @@ export default function TerritoryDetailPage({
         />
 
         {/* Map legend */}
-        <div className="absolute bottom-4 left-4 z-[400] flex flex-col gap-1.5 rounded-xl border border-border bg-card/95 px-3 py-2.5 backdrop-blur text-xs">
+        <div className="absolute bottom-4 left-4 z-[400] flex flex-col gap-1.5 rounded-xl border border-white/[0.06] bg-[#111118]/90 px-3 py-2.5 backdrop-blur-sm text-xs">
           <LegendItem color="#6b7280" label="Not home" />
           <LegendItem color="#22c55e" label="Positive" />
           <LegendItem color="#ef4444" label="Not interested" />
-          <div className="flex items-center gap-1.5 text-muted-foreground mt-0.5 border-t border-border pt-1.5">
+          <div className="flex items-center gap-1.5 text-muted-foreground mt-0.5 border-t border-white/[0.04] pt-1.5">
             <span className="inline-block h-3 w-3 rounded-full border border-white/60 bg-transparent" />
             Ring = revisited
           </div>
@@ -258,7 +258,7 @@ export default function TerritoryDetailPage({
           {/* Benchmarks collapsible */}
           <button
             onClick={() => setShowBenchmarks((v) => !v)}
-            className="flex w-full items-center justify-between px-4 py-2.5 text-xs text-muted-foreground border-t border-border"
+            className="flex w-full items-center justify-between px-4 py-3 text-xs text-muted-foreground border-t border-border hover:text-foreground transition-colors"
           >
             <span className="font-medium">Industry Benchmarks</span>
             {showBenchmarks ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
@@ -270,9 +270,9 @@ export default function TerritoryDetailPage({
                 { metric: 'Pitch Rate', target: '60–80%' },
                 { metric: 'Close Rate', target: '10–20%' },
               ].map(({ metric, target }) => (
-                <div key={metric} className="rounded-lg bg-card p-2.5">
-                  <p className="text-muted-foreground">{metric}</p>
-                  <p className="font-bold text-foreground mt-0.5">{target}</p>
+                <div key={metric} className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-3">
+                  <p className="text-muted-foreground mb-1">{metric}</p>
+                  <p className="font-bold text-foreground text-sm">{target}</p>
                 </div>
               ))}
             </div>
@@ -332,11 +332,11 @@ function RecommendationCard({ rec }: { rec: Recommendation }) {
     success: 'border-[#FF6B35]/20 bg-[#FF6B35]/5',
   }
   return (
-    <div className={`flex items-start gap-2 rounded-lg border px-3 py-2.5 ${bg[rec.type]}`}>
+    <div className={`flex items-start gap-2.5 rounded-xl border px-3 py-3 ${bg[rec.type]}`}>
       {icons[rec.type]}
       <div>
         <p className="text-xs font-semibold text-foreground">{rec.title}</p>
-        <p className="text-xs text-muted-foreground">{rec.message}</p>
+        <p className="text-xs text-muted-foreground mt-0.5">{rec.message}</p>
       </div>
     </div>
   )
@@ -365,14 +365,14 @@ function DoorDetailPopup({
   }
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[500] rounded-t-2xl border-t border-border bg-card shadow-2xl">
+    <div className="fixed inset-x-0 bottom-0 z-[500] rounded-t-2xl border-t border-white/[0.06] bg-[#111118]/95 backdrop-blur-xl shadow-2xl">
       <div className="flex justify-center pt-3 pb-1">
-        <div className="h-1 w-10 rounded-full bg-border" />
+        <div className="h-1 w-10 rounded-full bg-white/10" />
       </div>
 
-      <div className="flex items-start justify-between px-4 py-3 border-b border-border">
+      <div className="flex items-start justify-between px-5 py-3 border-b border-white/[0.06]">
         <div>
-          <p className="text-sm font-semibold text-foreground">
+          <p className="text-sm font-semibold text-foreground heading-tight">
             {door.lat.toFixed(5)}, {door.lng.toFixed(5)}
           </p>
           <p className="text-xs text-muted-foreground mt-0.5">
@@ -381,7 +381,7 @@ function DoorDetailPopup({
         </div>
         <button
           onClick={onClose}
-          className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-muted-foreground"
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-white/[0.06] text-muted-foreground hover:text-foreground transition-colors"
         >
           <X size={16} />
         </button>
@@ -389,7 +389,7 @@ function DoorDetailPopup({
 
       {/* Visit history */}
       {door.visits.length > 0 && (
-        <div className="px-4 py-3 max-h-36 overflow-y-auto space-y-2">
+        <div className="px-5 py-3 max-h-36 overflow-y-auto space-y-2.5">
           {[...door.visits].reverse().map((v, i) => (
             <div key={i} className="flex items-start gap-3 text-xs">
               <span className="text-muted-foreground shrink-0">{v.date}</span>
@@ -410,16 +410,17 @@ function DoorDetailPopup({
         </div>
       )}
 
-      <div className="flex gap-3 px-4 py-4">
+      <div className="flex gap-3 px-5 py-4">
         <button
           onClick={onKnockAgain}
-          className="flex-1 rounded-xl bg-[#FF6B35] py-3 text-sm font-semibold text-[#0a0a0a]"
+          className="flex-1 rounded-xl bg-[#FF6B35] py-3.5 text-sm font-semibold text-[#0a0a0a] transition-all hover:opacity-90 active:scale-[0.98]"
+          style={{ boxShadow: '0 0 20px rgba(255, 107, 53, 0.25)' }}
         >
           Knock Again
         </button>
         <button
           onClick={onDelete}
-          className="flex h-12 w-12 items-center justify-center rounded-xl border border-border text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+          className="flex h-14 w-14 items-center justify-center rounded-xl border border-border text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
         >
           <Trash2 size={16} />
         </button>
