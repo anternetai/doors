@@ -18,35 +18,33 @@ export default function SignupPage() {
     setError(null)
     setLoading(true)
 
-    const supabase = createClient()
-    const { error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${window.location.origin}/dashboard`,
-      },
+    // Create user via server-side admin API (auto-confirms, no email sent)
+    const res = await fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
     })
 
-    if (signUpError) {
-      setError(signUpError.message)
+    if (!res.ok) {
+      const data = await res.json()
+      setError(data.error || 'Signup failed')
       setLoading(false)
       return
     }
 
-    // Auto-sign in after signup (skip email confirmation for now)
+    // Now sign in with the confirmed account
+    const supabase = createClient()
     const { error: signInError } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
 
     if (signInError) {
-      // If auto-signin fails (email confirmation required), show the check-email screen
-      setDone(true)
+      setError(signInError.message)
       setLoading(false)
       return
     }
 
-    // Signed in — go to dashboard
     router.push('/dashboard')
     router.refresh()
   }
