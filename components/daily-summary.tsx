@@ -34,7 +34,7 @@ export function DailySummary() {
           {hasActivity && (
             <button
               onClick={() => setShowShare(true)}
-              className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-[#FF6B35] transition-colors"
+              className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-[#22c55e] transition-colors"
             >
               <Share2 size={12} />
               Share
@@ -76,7 +76,7 @@ export function DailySummary() {
 function StatCell({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
     <div className="text-center">
-      <p className={`text-2xl font-bold heading-tighter ${accent ? 'text-[#FF6B35]' : 'text-foreground'}`}>
+      <p className={`text-2xl font-bold heading-tighter ${accent ? 'text-[#22c55e]' : 'text-foreground'}`}>
         {value}
       </p>
       <p className="text-[11px] text-muted-foreground mt-1">{label}</p>

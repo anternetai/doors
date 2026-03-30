@@ -45,14 +45,14 @@ export function OnboardingFlow({ onCreated }: Props) {
   return (
     <div
       className="flex min-h-screen flex-col items-center justify-center px-6 pb-20"
-      style={{ background: 'radial-gradient(ellipse at 50% 35%, rgba(255,107,53,0.07) 0%, transparent 55%)' }}
+      style={{ background: 'radial-gradient(ellipse at 50% 35%, rgba(34,197,94,0.07) 0%, transparent 55%)' }}
     >
       {/* Brand mark */}
       <div
-        className="mb-6 flex h-18 w-18 items-center justify-center rounded-2xl bg-[#1f1510] border border-[#FF6B35]/25"
-        style={{ width: 72, height: 72, boxShadow: '0 0 40px rgba(255, 107, 53, 0.2)' }}
+        className="mb-6 flex h-18 w-18 items-center justify-center rounded-2xl bg-[#1a2e1a] border border-[#22c55e]/25"
+        style={{ width: 72, height: 72, boxShadow: '0 0 40px rgba(34, 197, 94, 0.2)' }}
       >
-        <DoorOpen size={34} className="text-[#FF6B35]" />
+        <DoorOpen size={34} className="text-[#22c55e]" />
       </div>
 
       {/* Welcome copy */}
@@ -62,8 +62,8 @@ export function OnboardingFlow({ onCreated }: Props) {
       </p>
 
       {/* Territory creation form */}
-      <div className="w-full max-w-sm rounded-2xl border border-[#FF6B35]/20 bg-[#1f1510]/30 p-6 backdrop-blur-sm">
-        <h2 className="text-xs font-semibold text-[#FF6B35] mb-5 uppercase tracking-widest">Create your first territory</h2>
+      <div className="w-full max-w-sm rounded-2xl border border-[#22c55e]/20 bg-[#1a2e1a]/30 p-6 backdrop-blur-sm">
+        <h2 className="text-xs font-semibold text-[#22c55e] mb-5 uppercase tracking-widest">Create your first territory</h2>
 
         <form onSubmit={handleCreate} className="space-y-5">
           <div>
@@ -75,7 +75,7 @@ export function OnboardingFlow({ onCreated }: Props) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Oakwood Heights"
-              className="w-full rounded-xl border border-border bg-secondary/80 px-4 py-3.5 text-sm text-foreground placeholder-muted-foreground focus:border-[#FF6B35]/60 focus:outline-none focus:ring-1 focus:ring-[#FF6B35]/40 transition-colors"
+              className="w-full rounded-xl border border-border bg-secondary/80 px-4 py-3.5 text-sm text-foreground placeholder-muted-foreground focus:border-[#22c55e]/60 focus:outline-none focus:ring-1 focus:ring-[#22c55e]/40 transition-colors"
             />
           </div>
 
@@ -88,7 +88,7 @@ export function OnboardingFlow({ onCreated }: Props) {
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               placeholder="e.g. 123 Main St, Charlotte, NC"
-              className="w-full rounded-xl border border-border bg-secondary/80 px-4 py-3.5 text-sm text-foreground placeholder-muted-foreground focus:border-[#FF6B35]/60 focus:outline-none focus:ring-1 focus:ring-[#FF6B35]/40 transition-colors"
+              className="w-full rounded-xl border border-border bg-secondary/80 px-4 py-3.5 text-sm text-foreground placeholder-muted-foreground focus:border-[#22c55e]/60 focus:outline-none focus:ring-1 focus:ring-[#22c55e]/40 transition-colors"
             />
           </div>
 
@@ -99,8 +99,8 @@ export function OnboardingFlow({ onCreated }: Props) {
           <button
             type="submit"
             disabled={creating || !name.trim()}
-            className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#FF6B35] py-3.5 text-sm font-semibold text-[#0a0a0a] disabled:opacity-50 transition-all hover:opacity-90 active:scale-[0.98]"
-            style={{ boxShadow: (creating || !name.trim()) ? 'none' : '0 0 28px rgba(255, 107, 53, 0.3)' }}
+            className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#22c55e] py-3.5 text-sm font-semibold text-[#0a0a0a] disabled:opacity-50 transition-all hover:opacity-90 active:scale-[0.98]"
+            style={{ boxShadow: (creating || !name.trim()) ? 'none' : '0 0 28px rgba(34, 197, 94, 0.3)' }}
           >
             {creating ? (
               'Creating…'

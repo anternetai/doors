@@ -52,7 +52,7 @@ export function FaqAccordion() {
                 height="18"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke={open === i ? '#FF6B35' : 'rgba(245,245,247,0.4)'}
+                stroke={open === i ? '#22c55e' : 'rgba(245,245,247,0.4)'}
                 strokeWidth="2"
                 strokeLinecap="round"
               >

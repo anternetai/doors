@@ -36,8 +36,8 @@ export default function SettingsPage() {
         {/* Account */}
         <div className="rounded-2xl border border-white/[0.06] bg-[#111118]/80 p-5 backdrop-blur-sm">
           <div className="flex items-center gap-4">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#1f1510] border border-[#FF6B35]/25">
-              <User size={18} className="text-[#FF6B35]" />
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#1a2e1a] border border-[#22c55e]/25">
+              <User size={18} className="text-[#22c55e]" />
             </div>
             <div>
               <p className="text-sm font-medium text-foreground">Account</p>

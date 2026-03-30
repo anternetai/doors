@@ -34,21 +34,21 @@ const IconArrow = () => (
 )
 
 const IconX = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
     <line x1="18" y1="6" x2="6" y2="18" />
     <line x1="6" y1="6" x2="18" y2="18" />
   </svg>
 )
 
 const IconClock = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <circle cx="12" cy="12" r="9" />
     <polyline points="12 7 12 12 15 15" />
   </svg>
 )
 
 const IconMapPin = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <circle cx="12" cy="10" r="3" />
     <path d="M12 2a8 8 0 0 1 8 8c0 5.25-8 14-8 14S4 15.25 4 10a8 8 0 0 1 8-8z" />
   </svg>
@@ -61,7 +61,7 @@ const IconCheck = ({ color = '#22C55E' }: { color?: string }) => (
 )
 
 const IconSun = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <circle cx="12" cy="12" r="4" />
     <line x1="12" y1="2" x2="12" y2="5" />
     <line x1="12" y1="19" x2="12" y2="22" />
@@ -75,7 +75,7 @@ const IconSun = () => (
 )
 
 const IconStats = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <line x1="18" y1="20" x2="18" y2="10" />
     <line x1="12" y1="20" x2="12" y2="4" />
     <line x1="6" y1="20" x2="6" y2="14" />
@@ -83,14 +83,14 @@ const IconStats = () => (
 )
 
 const IconCamera = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
     <circle cx="12" cy="13" r="4" />
   </svg>
 )
 
 const IconHistory = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
     <path d="M3 3v5h5" />
     <path d="M12 7v5l4 2" />
@@ -102,7 +102,7 @@ const IconHistory = () => (
 function OrangeDot() {
   return (
     <span
-      className="inline-block h-1.5 w-1.5 rounded-full bg-[#FF6B35]"
+      className="inline-block h-1.5 w-1.5 rounded-full bg-[#22c55e]"
       aria-hidden="true"
     />
   )
@@ -110,7 +110,7 @@ function OrangeDot() {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-[#FF6B35]/25 bg-[#FF6B35]/[0.08] px-3 py-1 text-xs font-semibold uppercase tracking-widest text-[#FF6B35]">
+    <span className="inline-flex items-center gap-2 rounded-full border border-[#22c55e]/25 bg-[#22c55e]/[0.08] px-3 py-1 text-xs font-semibold uppercase tracking-widest text-[#22c55e]">
       <OrangeDot />
       {children}
     </span>
@@ -123,29 +123,29 @@ function MapVisual() {
   // A grid of colored dots representing a neighborhood canvas
   const dots: { color: string; label: string }[] = [
     { color: '#22C55E', label: 'Closed' },
-    { color: '#FF6B35', label: 'No answer' },
+    { color: '#22c55e', label: 'No answer' },
     { color: '#22C55E', label: 'Closed' },
     { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
-    { color: '#FF6B35', label: 'No answer' },
+    { color: '#22c55e', label: 'No answer' },
     { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
-    { color: '#FF6B35', label: 'No answer' },
-    { color: '#22C55E', label: 'Closed' },
-    { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
-    { color: '#FF6B35', label: 'No answer' },
-    { color: '#22C55E', label: 'Closed' },
+    { color: '#22c55e', label: 'No answer' },
     { color: '#22C55E', label: 'Closed' },
     { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
-    { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
-    { color: '#FF6B35', label: 'No answer' },
+    { color: '#22c55e', label: 'No answer' },
     { color: '#22C55E', label: 'Closed' },
-    { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
-    { color: '#FF6B35', label: 'No answer' },
     { color: '#22C55E', label: 'Closed' },
     { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
-    { color: '#FF6B35', label: 'No answer' },
+    { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
+    { color: '#22c55e', label: 'No answer' },
+    { color: '#22C55E', label: 'Closed' },
+    { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
+    { color: '#22c55e', label: 'No answer' },
+    { color: '#22C55E', label: 'Closed' },
+    { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
+    { color: '#22c55e', label: 'No answer' },
     { color: '#22C55E', label: 'Closed' },
     { color: '#22C55E', label: 'Closed' },
-    { color: '#FF6B35', label: 'No answer' },
+    { color: '#22c55e', label: 'No answer' },
     { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
   ]
 
@@ -156,7 +156,7 @@ function MapVisual() {
         aria-hidden="true"
         className="absolute inset-0 rounded-3xl"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(255,107,53,0.18) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse at center, rgba(34,197,94,0.18) 0%, transparent 70%)',
         }}
       />
 
@@ -190,7 +190,7 @@ function MapVisual() {
             Closed
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#FF6B35]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#22c55e]" />
             No answer
           </span>
           <span className="flex items-center gap-1.5">
@@ -233,9 +233,9 @@ export default function LandingPage() {
           <div className="flex items-center gap-2.5">
             <div
               className="flex h-8 w-8 items-center justify-center rounded-lg"
-              style={{ background: 'rgba(255,107,53,0.15)', border: '1px solid rgba(255,107,53,0.3)' }}
+              style={{ background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)' }}
             >
-              <span className="text-sm font-black text-[#FF6B35]">D</span>
+              <span className="text-sm font-black text-[#22c55e]">D</span>
             </div>
             <span className="text-base font-bold tracking-tight text-[#F5F5F7]">Doors</span>
           </div>
@@ -267,7 +267,7 @@ export default function LandingPage() {
             <Link
               href="/signup"
               className="inline-flex h-9 items-center justify-center rounded-lg px-4 text-sm font-bold transition-all hover:opacity-90"
-              style={{ backgroundColor: '#FF6B35', color: '#0A0A0F' }}
+              style={{ backgroundColor: '#22c55e', color: '#0A0A0F' }}
             >
               Start free — no card needed
             </Link>
@@ -288,7 +288,7 @@ export default function LandingPage() {
           style={{
             width: 800,
             height: 500,
-            background: 'radial-gradient(ellipse at center, rgba(255,107,53,0.12) 0%, transparent 65%)',
+            background: 'radial-gradient(ellipse at center, rgba(34,197,94,0.12) 0%, transparent 65%)',
           }}
         />
 
@@ -298,7 +298,7 @@ export default function LandingPage() {
             {/* Left: Copy */}
             <div>
               {/* Badge */}
-              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#FF6B35]/25 bg-[#FF6B35]/[0.08] px-3 py-1 text-xs font-semibold uppercase tracking-widest text-[#FF6B35]">
+              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#22c55e]/25 bg-[#22c55e]/[0.08] px-3 py-1 text-xs font-semibold uppercase tracking-widest text-[#22c55e]">
                 <OrangeDot />
                 Free during launch — no card needed
               </div>
@@ -324,9 +324,9 @@ export default function LandingPage() {
                   href="/signup"
                   className="inline-flex h-12 items-center justify-center gap-2 rounded-xl px-8 text-base font-bold transition-all hover:opacity-90"
                   style={{
-                    backgroundColor: '#FF6B35',
+                    backgroundColor: '#22c55e',
                     color: '#0A0A0F',
-                    boxShadow: '0 0 30px rgba(255,107,53,0.25)',
+                    boxShadow: '0 0 30px rgba(34,197,94,0.25)',
                   }}
                 >
                   Start tracking free
@@ -369,8 +369,8 @@ export default function LandingPage() {
                 </p>
                 <div className="mt-2.5 flex items-center gap-2">
                   <div
-                    className="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-black text-[#FF6B35]"
-                    style={{ background: 'rgba(255,107,53,0.15)', border: '1px solid rgba(255,107,53,0.3)' }}
+                    className="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-black text-[#22c55e]"
+                    style={{ background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)' }}
                   >
                     A
                   </div>
@@ -436,7 +436,7 @@ export default function LandingPage() {
               >
                 <div
                   className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg"
-                  style={{ backgroundColor: 'rgba(255,107,53,0.1)', border: '1px solid rgba(255,107,53,0.2)' }}
+                  style={{ backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)' }}
                 >
                   {card.icon}
                 </div>
@@ -479,22 +479,22 @@ export default function LandingPage() {
               className="relative overflow-hidden rounded-2xl p-7 lg:col-span-2"
               style={{
                 backgroundColor: '#111118',
-                border: '1px solid rgba(255,107,53,0.2)',
-                boxShadow: '0 0 40px rgba(255,107,53,0.06)',
+                border: '1px solid rgba(34,197,94,0.2)',
+                boxShadow: '0 0 40px rgba(34,197,94,0.06)',
               }}
             >
               {/* Subtle orange glow */}
               <div
                 aria-hidden="true"
                 className="absolute -right-12 -top-12 h-48 w-48 rounded-full"
-                style={{ background: 'rgba(255,107,53,0.07)', filter: 'blur(40px)' }}
+                style={{ background: 'rgba(34,197,94,0.07)', filter: 'blur(40px)' }}
               />
 
               <div
                 className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg"
-                style={{ backgroundColor: 'rgba(255,107,53,0.1)', border: '1px solid rgba(255,107,53,0.2)' }}
+                style={{ backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)' }}
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M9 11V6a3 3 0 0 1 6 0v5" />
                   <path d="M9 11H5a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2h-4" />
                 </svg>
@@ -518,14 +518,14 @@ export default function LandingPage() {
                     key={step.n}
                     className="flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium"
                     style={{
-                      backgroundColor: 'rgba(255,107,53,0.1)',
-                      border: '1px solid rgba(255,107,53,0.2)',
+                      backgroundColor: 'rgba(34,197,94,0.1)',
+                      border: '1px solid rgba(34,197,94,0.2)',
                       color: '#F5F5F7',
                     }}
                   >
                     <span
                       className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-black"
-                      style={{ backgroundColor: '#FF6B35', color: '#0A0A0F' }}
+                      style={{ backgroundColor: '#22c55e', color: '#0A0A0F' }}
                     >
                       {step.n}
                     </span>
@@ -545,7 +545,7 @@ export default function LandingPage() {
             >
               <div
                 className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg"
-                style={{ backgroundColor: 'rgba(255,107,53,0.1)', border: '1px solid rgba(255,107,53,0.2)' }}
+                style={{ backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)' }}
               >
                 <IconMapPin />
               </div>
@@ -560,19 +560,19 @@ export default function LandingPage() {
               className="relative overflow-hidden rounded-2xl p-6"
               style={{
                 backgroundColor: '#111118',
-                border: '1px solid rgba(255,107,53,0.25)',
+                border: '1px solid rgba(34,197,94,0.25)',
               }}
             >
               {/* Star badge */}
               <div
                 className="absolute right-4 top-4 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider"
-                style={{ backgroundColor: 'rgba(255,107,53,0.15)', color: '#FF6B35' }}
+                style={{ backgroundColor: 'rgba(34,197,94,0.15)', color: '#22c55e' }}
               >
                 Only in Doors
               </div>
               <div
                 className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg"
-                style={{ backgroundColor: 'rgba(255,107,53,0.1)', border: '1px solid rgba(255,107,53,0.2)' }}
+                style={{ backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)' }}
               >
                 <IconSun />
               </div>
@@ -592,7 +592,7 @@ export default function LandingPage() {
             >
               <div
                 className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg"
-                style={{ backgroundColor: 'rgba(255,107,53,0.1)', border: '1px solid rgba(255,107,53,0.2)' }}
+                style={{ backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)' }}
               >
                 <IconStats />
               </div>
@@ -612,7 +612,7 @@ export default function LandingPage() {
             >
               <div
                 className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg"
-                style={{ backgroundColor: 'rgba(255,107,53,0.1)', border: '1px solid rgba(255,107,53,0.2)' }}
+                style={{ backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)' }}
               >
                 <IconCamera />
               </div>
@@ -632,7 +632,7 @@ export default function LandingPage() {
             >
               <div
                 className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg"
-                style={{ backgroundColor: 'rgba(255,107,53,0.1)', border: '1px solid rgba(255,107,53,0.2)' }}
+                style={{ backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)' }}
               >
                 <IconHistory />
               </div>
@@ -679,7 +679,7 @@ export default function LandingPage() {
               aria-hidden="true"
               className="absolute left-0 right-0 top-8 hidden h-px sm:block"
               style={{
-                background: 'linear-gradient(to right, transparent, rgba(255,107,53,0.2), rgba(255,107,53,0.2), transparent)',
+                background: 'linear-gradient(to right, transparent, rgba(34,197,94,0.2), rgba(34,197,94,0.2), transparent)',
               }}
             />
 
@@ -705,11 +705,11 @@ export default function LandingPage() {
                 <div
                   className="relative z-10 mb-5 flex h-16 w-16 items-center justify-center rounded-2xl"
                   style={{
-                    backgroundColor: 'rgba(255,107,53,0.1)',
-                    border: '1px solid rgba(255,107,53,0.3)',
+                    backgroundColor: 'rgba(34,197,94,0.1)',
+                    border: '1px solid rgba(34,197,94,0.3)',
                   }}
                 >
-                  <span className="text-xl font-black text-[#FF6B35]">0{step.n}</span>
+                  <span className="text-xl font-black text-[#22c55e]">0{step.n}</span>
                 </div>
                 <h3 className="mb-2 text-base font-bold text-[#F5F5F7]">{step.title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: 'rgba(245,245,247,0.55)' }}>
@@ -719,7 +719,7 @@ export default function LandingPage() {
                 {i < 2 && (
                   <div aria-hidden="true" className="my-3 sm:hidden">
                     <svg width="16" height="20" viewBox="0 0 16 24" fill="none">
-                      <path d="M8 2v18M8 20l-4-4M8 20l4-4" stroke="rgba(255,107,53,0.3)" strokeWidth="1.5" strokeLinecap="round" />
+                      <path d="M8 2v18M8 20l-4-4M8 20l4-4" stroke="rgba(34,197,94,0.3)" strokeWidth="1.5" strokeLinecap="round" />
                     </svg>
                   </div>
                 )}
@@ -750,10 +750,10 @@ export default function LandingPage() {
             </p>
             <footer className="mt-5 flex items-center justify-center gap-2.5">
               <div
-                className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-black text-[#FF6B35]"
+                className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-black text-[#22c55e]"
                 style={{
-                  background: 'rgba(255,107,53,0.15)',
-                  border: '1px solid rgba(255,107,53,0.3)',
+                  background: 'rgba(34,197,94,0.15)',
+                  border: '1px solid rgba(34,197,94,0.3)',
                 }}
               >
                 A
@@ -769,11 +769,11 @@ export default function LandingPage() {
           <div
             className="mt-10 flex items-center justify-center gap-1 rounded-2xl px-6 py-4 text-sm"
             style={{
-              backgroundColor: 'rgba(255,107,53,0.06)',
-              border: '1px solid rgba(255,107,53,0.15)',
+              backgroundColor: 'rgba(34,197,94,0.06)',
+              border: '1px solid rgba(34,197,94,0.15)',
             }}
           >
-            <span className="font-bold text-[#FF6B35]">Built from 10,000+ real door knocks</span>
+            <span className="font-bold text-[#22c55e]">Built from 10,000+ real door knocks</span>
             <span style={{ color: 'rgba(245,245,247,0.3)' }}>in Charlotte, NC</span>
           </div>
 
@@ -846,21 +846,21 @@ export default function LandingPage() {
               className="relative rounded-2xl p-7"
               style={{
                 backgroundColor: '#111118',
-                border: '2px solid #FF6B35',
-                boxShadow: '0 0 40px rgba(255,107,53,0.12)',
+                border: '2px solid #22c55e',
+                boxShadow: '0 0 40px rgba(34,197,94,0.12)',
               }}
             >
               {/* Most Popular badge */}
               <div
                 className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs font-bold"
-                style={{ backgroundColor: '#FF6B35', color: '#0A0A0F' }}
+                style={{ backgroundColor: '#22c55e', color: '#0A0A0F' }}
               >
                 Most Popular
               </div>
 
               <div className="mb-1 text-sm font-semibold" style={{ color: 'rgba(245,245,247,0.5)' }}>Pro</div>
               <div className="flex items-baseline gap-1.5">
-                <span className="text-4xl font-black text-[#FF6B35]">$39</span>
+                <span className="text-4xl font-black text-[#22c55e]">$39</span>
                 <span className="text-sm" style={{ color: 'rgba(245,245,247,0.4)' }}>/mo</span>
               </div>
               <ul className="mt-6 space-y-3">
@@ -873,7 +873,7 @@ export default function LandingPage() {
                   'CSV export',
                 ].map((f) => (
                   <li key={f} className="flex items-center gap-2.5 text-sm" style={{ color: 'rgba(245,245,247,0.7)' }}>
-                    <IconCheck color="#FF6B35" />
+                    <IconCheck color="#22c55e" />
                     {f}
                   </li>
                 ))}
@@ -882,9 +882,9 @@ export default function LandingPage() {
                 href="/signup"
                 className="mt-8 flex h-11 w-full items-center justify-center rounded-xl text-sm font-bold transition-all hover:opacity-90"
                 style={{
-                  backgroundColor: '#FF6B35',
+                  backgroundColor: '#22c55e',
                   color: '#0A0A0F',
-                  boxShadow: '0 4px 20px rgba(255,107,53,0.25)',
+                  boxShadow: '0 4px 20px rgba(34,197,94,0.25)',
                 }}
               >
                 Try free — 14 days
@@ -978,10 +978,10 @@ export default function LandingPage() {
               </p>
               <footer className="mt-6 flex items-center gap-3">
                 <div
-                  className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-black text-[#FF6B35]"
+                  className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-black text-[#22c55e]"
                   style={{
-                    background: 'rgba(255,107,53,0.15)',
-                    border: '1px solid rgba(255,107,53,0.3)',
+                    background: 'rgba(34,197,94,0.15)',
+                    border: '1px solid rgba(34,197,94,0.3)',
                   }}
                 >
                   AF
@@ -1037,7 +1037,7 @@ export default function LandingPage() {
           style={{
             width: 700,
             height: 400,
-            background: 'radial-gradient(ellipse at center, rgba(255,107,53,0.13) 0%, transparent 65%)',
+            background: 'radial-gradient(ellipse at center, rgba(34,197,94,0.13) 0%, transparent 65%)',
           }}
         />
 
@@ -1059,9 +1059,9 @@ export default function LandingPage() {
               href="/signup"
               className="inline-flex h-14 items-center justify-center gap-2.5 rounded-xl px-10 text-base font-bold transition-all hover:opacity-90 hover:scale-105"
               style={{
-                backgroundColor: '#FF6B35',
+                backgroundColor: '#22c55e',
                 color: '#0A0A0F',
-                boxShadow: '0 0 50px rgba(255,107,53,0.35)',
+                boxShadow: '0 0 50px rgba(34,197,94,0.35)',
               }}
             >
               Start tracking free
@@ -1089,11 +1089,11 @@ export default function LandingPage() {
             <div
               className="flex h-7 w-7 items-center justify-center rounded-lg"
               style={{
-                background: 'rgba(255,107,53,0.1)',
-                border: '1px solid rgba(255,107,53,0.25)',
+                background: 'rgba(34,197,94,0.1)',
+                border: '1px solid rgba(34,197,94,0.25)',
               }}
             >
-              <span className="text-xs font-black text-[#FF6B35]">D</span>
+              <span className="text-xs font-black text-[#22c55e]">D</span>
             </div>
             <span className="text-sm font-semibold text-[#F5F5F7]">Doors</span>
             <span className="text-xs" style={{ color: 'rgba(245,245,247,0.3)' }}>&copy; 2026</span>
@@ -1127,7 +1127,7 @@ export default function LandingPage() {
             </Link>
             <Link
               href="/signup"
-              className="text-xs font-semibold text-[#FF6B35] transition-opacity hover:opacity-80"
+              className="text-xs font-semibold text-[#22c55e] transition-opacity hover:opacity-80"
             >
               Sign up free
             </Link>

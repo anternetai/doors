@@ -162,7 +162,7 @@ export function PitchRecorder({ onRecorded, initialAudioUrl }: Props) {
         <button
           type="button"
           onClick={handleStartRecording}
-          className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-secondary py-3 text-sm font-medium text-muted-foreground transition-colors hover:border-[#FF6B35]/40 hover:text-foreground active:scale-95"
+          className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-secondary py-3 text-sm font-medium text-muted-foreground transition-colors hover:border-[#22c55e]/40 hover:text-foreground active:scale-95"
         >
           <Mic size={15} />
           Record Pitch
@@ -177,14 +177,14 @@ export function PitchRecorder({ onRecorded, initialAudioUrl }: Props) {
 
   if (state === 'recording') {
     return (
-      <div className="flex items-center gap-3 rounded-xl border border-[#FF6B35]/40 bg-[#1f1510]/60 px-4 py-3">
+      <div className="flex items-center gap-3 rounded-xl border border-[#22c55e]/40 bg-[#1a2e1a]/60 px-4 py-3">
         {/* Pulsing red dot */}
         <span className="relative flex h-3 w-3 shrink-0">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
           <span className="relative inline-flex h-3 w-3 rounded-full bg-red-500" />
         </span>
 
-        <span className="font-mono text-sm font-bold text-[#FF6B35] tabular-nums flex-1">
+        <span className="font-mono text-sm font-bold text-[#22c55e] tabular-nums flex-1">
           {formatTime(elapsed)}
         </span>
 
@@ -202,8 +202,8 @@ export function PitchRecorder({ onRecorded, initialAudioUrl }: Props) {
 
   // state === 'recorded'
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-[#FF6B35]/30 bg-[#1f1510]/40 px-4 py-3">
-      <Mic size={14} className="text-[#FF6B35] shrink-0" />
+    <div className="flex items-center gap-3 rounded-xl border border-[#22c55e]/30 bg-[#1a2e1a]/40 px-4 py-3">
+      <Mic size={14} className="text-[#22c55e] shrink-0" />
       <span className="flex-1 text-xs text-muted-foreground">Pitch recorded</span>
 
       <button

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist } from 'next/font/google'
 import './globals.css'
+import { AIAgent } from '@/components/ai-agent'
 
 const geist = Geist({
   variable: '--font-sans',
@@ -29,6 +30,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {children}
+        <AIAgent />
       </body>
     </html>
   )

@@ -6,6 +6,7 @@ import { Plus, Trash2, MapPin, TrendingUp } from 'lucide-react'
 import { DoorsNav } from '@/components/doors-nav'
 import { OnboardingFlow } from '@/components/onboarding-flow'
 import { DailySummary } from '@/components/daily-summary'
+import { CommissionDisplay } from '@/components/commission-display'
 import type { TerritoryWithKpis } from '@/lib/types'
 
 export default function TerritoriesPage() {
@@ -101,17 +102,17 @@ export default function TerritoriesPage() {
       <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-background/90 px-4 py-4 backdrop-blur-xl">
         <div className="flex items-center gap-2.5">
           <div
-            className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1f1510] border border-[#FF6B35]/25"
-            style={{ boxShadow: '0 0 16px rgba(255, 107, 53, 0.15)' }}
+            className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1a2e1a] border border-[#22c55e]/25"
+            style={{ boxShadow: '0 0 16px rgba(34, 197, 94, 0.15)' }}
           >
-            <span className="text-sm font-bold text-[#FF6B35]" style={{ letterSpacing: '-0.02em' }}>D</span>
+            <span className="text-sm font-bold text-[#22c55e]" style={{ letterSpacing: '-0.02em' }}>D</span>
           </div>
           <h1 className="text-lg font-bold heading-tight">Territories</h1>
         </div>
         <button
           onClick={() => setShowNewForm((v) => !v)}
-          className="flex items-center gap-1.5 rounded-lg bg-[#FF6B35] px-3.5 py-2 text-sm font-semibold text-[#0a0a0a] transition-all hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
-          style={{ boxShadow: '0 0 20px rgba(255, 107, 53, 0.3)' }}
+          className="flex items-center gap-1.5 rounded-lg bg-[#22c55e] px-3.5 py-2 text-sm font-semibold text-[#0a0a0a] transition-all hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
+          style={{ boxShadow: '0 0 20px rgba(34, 197, 94, 0.3)' }}
         >
           <Plus size={16} />
           New
@@ -124,13 +125,18 @@ export default function TerritoriesPage() {
           <DailySummary />
         )}
 
+        {/* Commission display — only when territories exist */}
+        {!loading && !error && territories.length > 0 && (
+          <CommissionDisplay />
+        )}
+
         {/* New Territory Form */}
         {showNewForm && (
           <form
             onSubmit={handleCreate}
-            className="mb-5 rounded-2xl border border-[#FF6B35]/20 bg-[#1f1510]/30 p-5 space-y-4 backdrop-blur-sm"
+            className="mb-5 rounded-2xl border border-[#22c55e]/20 bg-[#1a2e1a]/30 p-5 space-y-4 backdrop-blur-sm"
           >
-            <h2 className="text-xs font-semibold text-[#FF6B35] tracking-widest uppercase">New Territory</h2>
+            <h2 className="text-xs font-semibold text-[#22c55e] tracking-widest uppercase">New Territory</h2>
             <div>
               <label className="block text-xs text-muted-foreground mb-2">Name *</label>
               <input
@@ -139,7 +145,7 @@ export default function TerritoriesPage() {
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
                 placeholder="e.g. Oakwood Heights"
-                className="w-full rounded-xl border border-border bg-secondary/80 px-4 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#FF6B35]/60 focus:outline-none focus:ring-1 focus:ring-[#FF6B35]/40 transition-colors"
+                className="w-full rounded-xl border border-border bg-secondary/80 px-4 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#22c55e]/60 focus:outline-none focus:ring-1 focus:ring-[#22c55e]/40 transition-colors"
               />
             </div>
             <div>
@@ -151,15 +157,15 @@ export default function TerritoriesPage() {
                 value={newAddress}
                 onChange={(e) => setNewAddress(e.target.value)}
                 placeholder="e.g. 123 Main St, Charlotte, NC"
-                className="w-full rounded-xl border border-border bg-secondary/80 px-4 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#FF6B35]/60 focus:outline-none focus:ring-1 focus:ring-[#FF6B35]/40 transition-colors"
+                className="w-full rounded-xl border border-border bg-secondary/80 px-4 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#22c55e]/60 focus:outline-none focus:ring-1 focus:ring-[#22c55e]/40 transition-colors"
               />
             </div>
             <div className="flex gap-3 pt-1">
               <button
                 type="submit"
                 disabled={creating}
-                className="flex-1 rounded-xl bg-[#FF6B35] py-3 text-sm font-semibold text-[#0a0a0a] disabled:opacity-50 transition-all hover:opacity-90 active:scale-[0.98]"
-                style={{ boxShadow: creating ? 'none' : '0 0 24px rgba(255, 107, 53, 0.25)' }}
+                className="flex-1 rounded-xl bg-[#22c55e] py-3 text-sm font-semibold text-[#0a0a0a] disabled:opacity-50 transition-all hover:opacity-90 active:scale-[0.98]"
+                style={{ boxShadow: creating ? 'none' : '0 0 24px rgba(34, 197, 94, 0.25)' }}
               >
                 {creating ? 'Creating…' : 'Create Territory'}
               </button>
@@ -190,8 +196,8 @@ export default function TerritoriesPage() {
 
         {!loading && !error && territories.length === 0 && (
           <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1f1510] border border-[#FF6B35]/20">
-              <MapPin size={28} className="text-[#FF6B35]/60" />
+            <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1a2e1a] border border-[#22c55e]/20">
+              <MapPin size={28} className="text-[#22c55e]/60" />
             </div>
             <p className="text-base font-semibold text-foreground mb-1.5 heading-tight">No territories yet</p>
             <p className="text-sm text-muted-foreground max-w-[220px] leading-relaxed">
@@ -205,7 +211,7 @@ export default function TerritoriesPage() {
             <div key={t.id} className="relative group">
               <Link
                 href={`/territories/${encodeURIComponent(t.name)}`}
-                className="block rounded-2xl border border-white/[0.06] bg-[#111118]/80 p-5 transition-all hover:border-[#FF6B35]/25 hover:bg-[#111118] active:scale-[0.99] backdrop-blur-sm"
+                className="block rounded-2xl border border-white/[0.06] bg-[#111118]/80 p-5 transition-all hover:border-[#22c55e]/25 hover:bg-[#111118] active:scale-[0.99] backdrop-blur-sm"
                 style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.4)' }}
               >
                 <div className="flex items-start justify-between mb-4">
@@ -235,7 +241,7 @@ export default function TerritoriesPage() {
                   </div>
                   <div>
                     <p className="text-[11px] text-muted-foreground mb-1">Close</p>
-                    <p className="text-lg font-bold text-[#FF6B35] heading-tight">
+                    <p className="text-lg font-bold text-[#22c55e] heading-tight">
                       {t.kpis.doors_pitched > 0 ? fmtPct(t.kpis.close_rate) : '—'}
                     </p>
                   </div>

@@ -92,7 +92,7 @@ export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props)
           <div
             key={s}
             className={`h-1 flex-1 rounded-full transition-colors ${
-              s <= step ? 'bg-[#FF6B35]' : 'bg-white/[0.08]'
+              s <= step ? 'bg-[#22c55e]' : 'bg-white/[0.08]'
             }`}
           />
         ))}
@@ -109,7 +109,7 @@ export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props)
                   type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-full rounded-xl border border-border bg-secondary/80 px-3 py-3 text-sm text-foreground focus:border-[#FF6B35]/60 focus:outline-none transition-colors"
+                  className="w-full rounded-xl border border-border bg-secondary/80 px-3 py-3 text-sm text-foreground focus:border-[#22c55e]/60 focus:outline-none transition-colors"
                 />
               </div>
               <div>
@@ -118,7 +118,7 @@ export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props)
                   type="time"
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
-                  className="w-full rounded-xl border border-border bg-secondary/80 px-3 py-3 text-sm text-foreground focus:border-[#FF6B35]/60 focus:outline-none transition-colors"
+                  className="w-full rounded-xl border border-border bg-secondary/80 px-3 py-3 text-sm text-foreground focus:border-[#22c55e]/60 focus:outline-none transition-colors"
                 />
               </div>
             </div>
@@ -128,7 +128,7 @@ export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props)
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={() => { setAnswered(true); setStep(2) }}
-                  className="rounded-xl border-2 border-[#FF6B35] bg-[#FF6B35]/10 py-4 text-sm font-semibold text-[#FF6B35] transition-all active:scale-[0.97] min-h-[56px]"
+                  className="rounded-xl border-2 border-[#22c55e] bg-[#22c55e]/10 py-4 text-sm font-semibold text-[#22c55e] transition-all active:scale-[0.97] min-h-[56px]"
                 >
                   Yes, answered
                 </button>
@@ -150,7 +150,7 @@ export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props)
             <div className="grid grid-cols-2 gap-3">
               <button
                 onClick={() => { setPitched(true); setStep(3) }}
-                className="rounded-xl border-2 border-[#FF6B35] bg-[#FF6B35]/10 py-4 text-sm font-semibold text-[#FF6B35] transition-all active:scale-[0.97] min-h-[56px]"
+                className="rounded-xl border-2 border-[#22c55e] bg-[#22c55e]/10 py-4 text-sm font-semibold text-[#22c55e] transition-all active:scale-[0.97] min-h-[56px]"
               >
                 Yes, pitched
               </button>
@@ -177,7 +177,7 @@ export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props)
             <div className="flex flex-col gap-3">
               <button
                 onClick={() => { setClosed(true); setNotInterested(false); setStep(4) }}
-                className="rounded-xl border-2 border-[#FF6B35] bg-[#FF6B35]/10 py-4 text-sm font-semibold text-[#FF6B35] transition-all active:scale-[0.97] min-h-[56px]"
+                className="rounded-xl border-2 border-[#22c55e] bg-[#22c55e]/10 py-4 text-sm font-semibold text-[#22c55e] transition-all active:scale-[0.97] min-h-[56px]"
               >
                 Closed the deal!
               </button>
@@ -217,7 +217,7 @@ export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props)
                 onChange={(e) => setNotes(e.target.value)}
                 rows={3}
                 placeholder="Anything to remember about this door…"
-                className="w-full rounded-xl border border-border bg-secondary/80 px-3 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#FF6B35]/60 focus:outline-none resize-none transition-colors"
+                className="w-full rounded-xl border border-border bg-secondary/80 px-3 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#22c55e]/60 focus:outline-none resize-none transition-colors"
               />
             </div>
 
@@ -231,7 +231,7 @@ export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props)
                   value={revenue}
                   onChange={(e) => setRevenue(e.target.value)}
                   placeholder="0.00"
-                  className="w-full rounded-xl border border-border bg-secondary/80 px-3 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#FF6B35]/60 focus:outline-none transition-colors"
+                  className="w-full rounded-xl border border-border bg-secondary/80 px-3 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#22c55e]/60 focus:outline-none transition-colors"
                 />
               </div>
             )}
@@ -246,8 +246,8 @@ export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props)
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-[#FF6B35] py-3.5 text-sm font-semibold text-[#0a0a0a] disabled:opacity-50 transition-all hover:opacity-90 active:scale-[0.98]"
-                style={{ boxShadow: saving ? 'none' : '0 0 20px rgba(255, 107, 53, 0.25)' }}
+                className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-[#22c55e] py-3.5 text-sm font-semibold text-[#0a0a0a] disabled:opacity-50 transition-all hover:opacity-90 active:scale-[0.98]"
+                style={{ boxShadow: saving ? 'none' : '0 0 20px rgba(34, 197, 94, 0.25)' }}
               >
                 {saving ? 'Saving…' : (
                   <>Save Visit <ChevronRight size={16} /></>

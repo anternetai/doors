@@ -156,7 +156,7 @@ export default function TerritoryDetailPage({
         <p className="text-sm text-destructive">{error ?? 'Territory not found'}</p>
         <button
           onClick={() => router.push('/dashboard')}
-          className="text-sm text-[#FF6B35] underline"
+          className="text-sm text-[#22c55e] underline"
         >
           Back to territories
         </button>
@@ -197,7 +197,7 @@ export default function TerritoryDetailPage({
             key={label}
             className="flex shrink-0 flex-col items-center rounded-xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm px-4 py-3 min-w-[72px]"
           >
-            <span className={`text-2xl font-bold heading-tighter ${accent ? 'text-[#FF6B35]' : 'text-foreground'}`}>
+            <span className={`text-2xl font-bold heading-tighter ${accent ? 'text-[#22c55e]' : 'text-foreground'}`}>
               {value}
             </span>
             <span className="text-[11px] text-muted-foreground mt-1">{label}</span>
@@ -207,7 +207,7 @@ export default function TerritoryDetailPage({
 
       {/* First-time hint banner */}
       {showHint && (
-        <div className="mx-4 mt-2 mb-1 flex items-center gap-2 rounded-xl border border-[#FF6B35]/25 bg-[#1f1510]/50 px-4 py-2.5 text-xs text-[#FF6B35]">
+        <div className="mx-4 mt-2 mb-1 flex items-center gap-2 rounded-xl border border-[#22c55e]/25 bg-[#1a2e1a]/50 px-4 py-2.5 text-xs text-[#22c55e]">
           <Info size={13} className="shrink-0" />
           Tap the map to log your first door
         </div>
@@ -324,12 +324,12 @@ function RecommendationCard({ rec }: { rec: Recommendation }) {
   const icons = {
     warning: <AlertTriangle size={14} className="text-yellow-400 shrink-0" />,
     info: <Info size={14} className="text-blue-400 shrink-0" />,
-    success: <CheckCircle size={14} className="text-[#FF6B35] shrink-0" />,
+    success: <CheckCircle size={14} className="text-[#22c55e] shrink-0" />,
   }
   const bg = {
     warning: 'border-yellow-400/20 bg-yellow-400/5',
     info: 'border-blue-400/20 bg-blue-400/5',
-    success: 'border-[#FF6B35]/20 bg-[#FF6B35]/5',
+    success: 'border-[#22c55e]/20 bg-[#22c55e]/5',
   }
   return (
     <div className={`flex items-start gap-2.5 rounded-xl border px-3 py-3 ${bg[rec.type]}`}>
@@ -413,8 +413,8 @@ function DoorDetailPopup({
       <div className="flex gap-3 px-5 py-4">
         <button
           onClick={onKnockAgain}
-          className="flex-1 rounded-xl bg-[#FF6B35] py-3.5 text-sm font-semibold text-[#0a0a0a] transition-all hover:opacity-90 active:scale-[0.98]"
-          style={{ boxShadow: '0 0 20px rgba(255, 107, 53, 0.25)' }}
+          className="flex-1 rounded-xl bg-[#22c55e] py-3.5 text-sm font-semibold text-[#0a0a0a] transition-all hover:opacity-90 active:scale-[0.98]"
+          style={{ boxShadow: '0 0 20px rgba(34, 197, 94, 0.25)' }}
         >
           Knock Again
         </button>

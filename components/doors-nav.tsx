@@ -29,7 +29,7 @@ export function DoorsNav() {
               href={href}
               className={`flex flex-1 flex-col items-center justify-center gap-1 py-3.5 text-xs font-medium transition-all ${
                 isActive
-                  ? 'text-[#FF6B35]'
+                  ? 'text-[#22c55e]'
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -37,12 +37,12 @@ export function DoorsNav() {
                 <Icon
                   size={22}
                   strokeWidth={isActive ? 2.5 : 1.8}
-                  className={isActive ? 'text-[#FF6B35]' : ''}
+                  className={isActive ? 'text-[#22c55e]' : ''}
                 />
                 {isActive && (
                   <span
                     className="absolute -inset-2 rounded-full"
-                    style={{ background: 'rgba(255,107,53,0.1)', filter: 'blur(4px)' }}
+                    style={{ background: 'rgba(34,197,94,0.1)', filter: 'blur(4px)' }}
                   />
                 )}
               </div>
