@@ -4,7 +4,7 @@ import type { TerritoryDoor, DoorVisit } from '@/lib/types'
 import { SupabaseClient } from '@supabase/supabase-js'
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || ''
-const GEMINI_MODEL = 'gemini-2.5-flash-preview-05-20'
+const GEMINI_MODEL = 'gemini-2.5-flash'
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`
 
 const SYSTEM_PROMPT = `You are Doors, an AI sales coach built into a door-to-door sales tracker app. You help field sales reps knock more doors, close more deals, and earn more money.
