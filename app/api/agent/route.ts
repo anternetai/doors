@@ -4,9 +4,15 @@ import { createClient } from '@/lib/supabase/server'
 import type { TerritoryDoor, DoorVisit } from '@/lib/types'
 import { SupabaseClient } from '@supabase/supabase-js'
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-})
+let _anthropic: Anthropic | null = null
+function getAnthropic(): Anthropic {
+  if (!_anthropic) {
+    _anthropic = new Anthropic({
+      apiKey: process.env.ANTHROPIC_API_KEY!,
+    })
+  }
+  return _anthropic
+}
 
 const SYSTEM_PROMPT = `You are Doors, an AI sales coach built into a door-to-door sales tracker. You help reps knock more doors, close more deals, and earn more money.
 
@@ -613,7 +619,7 @@ export async function POST(request: NextRequest) {
   while (iterations < MAX_ITERATIONS) {
     iterations++
 
-    const response = await anthropic.messages.create({
+    const response = await getAnthropic().messages.create({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 1024,
       system: SYSTEM_PROMPT,
