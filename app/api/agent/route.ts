@@ -372,7 +372,7 @@ export async function POST(request: NextRequest) {
       if (!res.ok) {
         const errText = await res.text()
         console.error('[Agent] Gemini error:', res.status, errText)
-        return NextResponse.json({ response: 'Sorry, I hit an error. Try again in a second.' }, { status: 200 })
+        return NextResponse.json({ response: `Gemini error ${res.status}: ${errText.substring(0, 200)}` }, { status: 200 })
       }
 
       const data = await res.json()
@@ -417,8 +417,9 @@ export async function POST(request: NextRequest) {
       if (candidate.finishReason === 'STOP' && functionCalls.length === 0) break
     }
   } catch (err) {
-    console.error('[Agent] Error:', err)
-    return NextResponse.json({ response: 'Sorry, I hit an error. Try again in a second.' }, { status: 200 })
+    const errMsg = err instanceof Error ? err.message : String(err)
+    console.error('[Agent] Error:', errMsg)
+    return NextResponse.json({ response: `Error: ${errMsg.substring(0, 200)}` }, { status: 200 })
   }
 
   return NextResponse.json({ response: finalText })
