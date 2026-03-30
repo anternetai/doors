@@ -1,15 +1,18 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FaqAccordion } from './landing/faq-accordion'
+import { WaitlistCounter } from '@/components/waitlist-counter'
+import { WaitlistForm } from '@/components/waitlist-form'
+import { BetaApplication } from '@/components/beta-application'
 
 export const metadata: Metadata = {
   title: 'Doors — The tracker built for reps who knock.',
   description:
-    'Log contacts, map territories, and close more deals — without leaving the porch. Free to start, no credit card, no annual contract.',
+    'Join the waitlist for Doors — the door-to-door sales tracker built by a rep who knocked 10,000 doors. Limited beta: 25 spots, free for life.',
   openGraph: {
     title: 'Doors — The tracker built for reps who knock.',
     description:
-      'Log contacts, map territories, and close more deals without leaving the porch. Free forever. No setup fee. No annual contract.',
+      'Join the waitlist. Limited beta: 25 spots, free Pro access for life. No setup fee. No annual contract.',
     type: 'website',
   },
 }
@@ -97,9 +100,23 @@ const IconHistory = () => (
   </svg>
 )
 
+const IconMic = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z" />
+    <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+    <line x1="12" y1="19" x2="12" y2="22" />
+  </svg>
+)
+
+const IconZap = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+  </svg>
+)
+
 // ─── Shared primitives ─────────────────────────────────────────────────────────
 
-function OrangeDot() {
+function GreenDot() {
   return (
     <span
       className="inline-block h-1.5 w-1.5 rounded-full bg-[#22c55e]"
@@ -111,7 +128,7 @@ function OrangeDot() {
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <span className="inline-flex items-center gap-2 rounded-full border border-[#22c55e]/25 bg-[#22c55e]/[0.08] px-3 py-1 text-xs font-semibold uppercase tracking-widest text-[#22c55e]">
-      <OrangeDot />
+      <GreenDot />
       {children}
     </span>
   )
@@ -120,38 +137,37 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 // ─── Neighborhood Map Visual (CSS-only, no images) ────────────────────────────
 
 function MapVisual() {
-  // A grid of colored dots representing a neighborhood canvas
   const dots: { color: string; label: string }[] = [
     { color: '#22C55E', label: 'Closed' },
-    { color: '#22c55e', label: 'No answer' },
+    { color: '#4ade80', label: 'Follow-up' },
     { color: '#22C55E', label: 'Closed' },
     { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
-    { color: '#22c55e', label: 'No answer' },
+    { color: '#4ade80', label: 'Follow-up' },
     { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
-    { color: '#22c55e', label: 'No answer' },
-    { color: '#22C55E', label: 'Closed' },
-    { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
-    { color: '#22c55e', label: 'No answer' },
-    { color: '#22C55E', label: 'Closed' },
+    { color: '#4ade80', label: 'Follow-up' },
     { color: '#22C55E', label: 'Closed' },
     { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
-    { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
-    { color: '#22c55e', label: 'No answer' },
+    { color: '#4ade80', label: 'Follow-up' },
     { color: '#22C55E', label: 'Closed' },
-    { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
-    { color: '#22c55e', label: 'No answer' },
     { color: '#22C55E', label: 'Closed' },
     { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
-    { color: '#22c55e', label: 'No answer' },
+    { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
+    { color: '#4ade80', label: 'Follow-up' },
+    { color: '#22C55E', label: 'Closed' },
+    { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
+    { color: '#4ade80', label: 'Follow-up' },
+    { color: '#22C55E', label: 'Closed' },
+    { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
+    { color: '#4ade80', label: 'Follow-up' },
     { color: '#22C55E', label: 'Closed' },
     { color: '#22C55E', label: 'Closed' },
-    { color: '#22c55e', label: 'No answer' },
+    { color: '#4ade80', label: 'Follow-up' },
     { color: 'rgba(245,245,247,0.2)', label: 'Not knocked' },
   ]
 
   return (
     <div className="relative w-full max-w-sm mx-auto">
-      {/* Orange radial glow behind */}
+      {/* Green radial glow behind */}
       <div
         aria-hidden="true"
         className="absolute inset-0 rounded-3xl"
@@ -165,7 +181,7 @@ function MapVisual() {
         className="relative rounded-2xl border border-white/[0.06] p-6"
         style={{ background: '#111118' }}
       >
-        {/* Mini street grid lines */}
+        {/* Mini street label */}
         <div className="mb-5 text-[10px] font-semibold uppercase tracking-widest text-[rgba(245,245,247,0.3)]">
           Oak Ridge Blvd — Territory 1
         </div>
@@ -190,8 +206,8 @@ function MapVisual() {
             Closed
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#22c55e]" />
-            No answer
+            <span className="h-2.5 w-2.5 rounded-full bg-[#4ade80]" />
+            Follow-up
           </span>
           <span className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
@@ -254,6 +270,12 @@ export default function LandingPage() {
             >
               Pricing
             </a>
+            <a
+              href="#beta"
+              className="text-sm text-[rgba(245,245,247,0.6)] transition-colors hover:text-[#F5F5F7]"
+            >
+              Beta
+            </a>
           </nav>
 
           {/* CTA */}
@@ -264,13 +286,13 @@ export default function LandingPage() {
             >
               Log in
             </Link>
-            <Link
-              href="/signup"
+            <a
+              href="#waitlist"
               className="inline-flex h-9 items-center justify-center rounded-lg px-4 text-sm font-bold transition-all hover:opacity-90"
               style={{ backgroundColor: '#22c55e', color: '#0A0A0F' }}
             >
-              Start free — no card needed
-            </Link>
+              Join Waitlist
+            </a>
           </div>
         </div>
       </header>
@@ -281,7 +303,7 @@ export default function LandingPage() {
       ════════════════════════════════════════════════════════════════ */}
       <section className="relative overflow-hidden px-5 pb-24 pt-24 sm:px-8 sm:pb-32 sm:pt-32">
 
-        {/* Orange radial glow */}
+        {/* Green radial glow */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2"
@@ -299,8 +321,8 @@ export default function LandingPage() {
             <div>
               {/* Badge */}
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#22c55e]/25 bg-[#22c55e]/[0.08] px-3 py-1 text-xs font-semibold uppercase tracking-widest text-[#22c55e]">
-                <OrangeDot />
-                Free during launch — no card needed
+                <GreenDot />
+                Limited beta — 25 spots, free for life
               </div>
 
               <h1
@@ -315,33 +337,17 @@ export default function LandingPage() {
                 style={{ fontSize: '19px', color: 'rgba(245,245,247,0.6)' }}
               >
                 Log contacts, map territories, and close more deals —
-                without leaving the porch. Free to start, no credit card.
+                without leaving the porch. Built by a rep who knocked 10,000 doors.
               </p>
 
-              {/* CTAs */}
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/signup"
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-xl px-8 text-base font-bold transition-all hover:opacity-90"
-                  style={{
-                    backgroundColor: '#22c55e',
-                    color: '#0A0A0F',
-                    boxShadow: '0 0 30px rgba(34,197,94,0.25)',
-                  }}
-                >
-                  Start tracking free
-                  <IconArrow />
-                </Link>
-                <a
-                  href="#features"
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border px-8 text-base font-semibold transition-colors hover:border-white/20 hover:bg-white/[0.05]"
-                  style={{
-                    borderColor: 'rgba(255,255,255,0.1)',
-                    color: '#F5F5F7',
-                  }}
-                >
-                  See how it works
-                </a>
+              {/* Live counter */}
+              <div className="mt-6 text-sm" style={{ color: 'rgba(245,245,247,0.55)' }}>
+                <WaitlistCounter seed={247} />
+              </div>
+
+              {/* Waitlist form */}
+              <div id="waitlist" className="mt-6 scroll-mt-24">
+                <WaitlistForm variant="hero" />
               </div>
 
               {/* Micro trust line */}
@@ -349,7 +355,7 @@ export default function LandingPage() {
                 className="mt-4 text-[13px]"
                 style={{ color: 'rgba(245,245,247,0.35)' }}
               >
-                No demo required. No setup fee. No annual contract.
+                No credit card. No demo call. No annual contract.
               </p>
 
               {/* Founder quote anchor */}
@@ -474,7 +480,7 @@ export default function LandingPage() {
           {/* Bento grid */}
           <div className="grid gap-4 lg:grid-cols-3">
 
-            {/* Large card — Log a Door in 4 Taps (spans 2 cols) */}
+            {/* Large card — 1-Tap Quick Logging (spans 2 cols) */}
             <div
               className="relative overflow-hidden rounded-2xl p-7 lg:col-span-2"
               style={{
@@ -483,7 +489,6 @@ export default function LandingPage() {
                 boxShadow: '0 0 40px rgba(34,197,94,0.06)',
               }}
             >
-              {/* Subtle orange glow */}
               <div
                 aria-hidden="true"
                 className="absolute -right-12 -top-12 h-48 w-48 rounded-full"
@@ -494,45 +499,39 @@ export default function LandingPage() {
                 className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg"
                 style={{ backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)' }}
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M9 11V6a3 3 0 0 1 6 0v5" />
-                  <path d="M9 11H5a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2h-4" />
-                </svg>
+                <IconZap />
               </div>
 
-              <h3 className="mb-2 text-xl font-bold text-[#F5F5F7]">Log a door in 4 taps</h3>
+              <h3 className="mb-2 text-xl font-bold text-[#F5F5F7]">1-tap door logging</h3>
               <p className="mb-6 text-[15px] leading-relaxed" style={{ color: 'rgba(245,245,247,0.55)' }}>
-                Tap the map. Answer 4 questions. Done. No forms, no typing, no friction.
-                Built for reps who have 30 seconds between doors.
+                Tap a door pin — instant disposition buttons appear. Not Home / Talked / Pitched / Closed.
+                One tap logs it. The full wizard is still there for notes and photos when you have time.
               </p>
 
-              {/* 4-step pills */}
+              {/* Quick disposition buttons */}
               <div className="flex flex-wrap gap-2">
                 {[
-                  { n: '1', label: 'Answered?' },
-                  { n: '2', label: 'Pitched?' },
-                  { n: '3', label: 'Closed?' },
-                  { n: '4', label: 'Notes?' },
-                ].map((step) => (
+                  { label: 'Not Home', color: 'rgba(245,245,247,0.15)' },
+                  { label: 'Talked', color: 'rgba(34,197,94,0.15)' },
+                  { label: 'Pitched', color: 'rgba(34,197,94,0.25)' },
+                  { label: 'Closed 🔥', color: '#22c55e', text: '#0A0A0F' },
+                ].map((btn) => (
                   <div
-                    key={step.n}
-                    className="flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium"
+                    key={btn.label}
+                    className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold"
                     style={{
-                      backgroundColor: 'rgba(34,197,94,0.1)',
-                      border: '1px solid rgba(34,197,94,0.2)',
-                      color: '#F5F5F7',
+                      backgroundColor: btn.color,
+                      border: `1px solid ${btn.text ? 'transparent' : 'rgba(255,255,255,0.1)'}`,
+                      color: btn.text ?? '#F5F5F7',
                     }}
                   >
-                    <span
-                      className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-black"
-                      style={{ backgroundColor: '#22c55e', color: '#0A0A0F' }}
-                    >
-                      {step.n}
-                    </span>
-                    {step.label}
+                    {btn.label}
                   </div>
                 ))}
               </div>
+              <p className="mt-4 text-xs" style={{ color: 'rgba(245,245,247,0.35)' }}>
+                Optimistic UI — pin updates instantly, no waiting for server confirmation.
+              </p>
             </div>
 
             {/* Small card — Territory Maps */}
@@ -563,7 +562,6 @@ export default function LandingPage() {
                 border: '1px solid rgba(34,197,94,0.25)',
               }}
             >
-              {/* Star badge */}
               <div
                 className="absolute right-4 top-4 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider"
                 style={{ backgroundColor: 'rgba(34,197,94,0.15)', color: '#22c55e' }}
@@ -578,7 +576,33 @@ export default function LandingPage() {
               </div>
               <h3 className="mb-2 text-base font-bold text-[#F5F5F7]">Sun Mode</h3>
               <p className="text-sm leading-relaxed" style={{ color: 'rgba(245,245,247,0.55)' }}>
-                Maximum contrast for direct sunlight. Readable at 2pm in July. No other app has this.
+                Maximum contrast for direct sunlight. Readable at 2pm in July. No other D2D app has this.
+              </p>
+            </div>
+
+            {/* Small card — Audio Notes */}
+            <div
+              className="relative overflow-hidden rounded-2xl p-6"
+              style={{
+                backgroundColor: '#111118',
+                border: '1px solid rgba(34,197,94,0.15)',
+              }}
+            >
+              <div
+                className="absolute right-4 top-4 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider"
+                style={{ backgroundColor: 'rgba(34,197,94,0.1)', color: '#22c55e' }}
+              >
+                Coming in beta
+              </div>
+              <div
+                className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg"
+                style={{ backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)' }}
+              >
+                <IconMic />
+              </div>
+              <h3 className="mb-2 text-base font-bold text-[#F5F5F7]">Audio Notes</h3>
+              <p className="text-sm leading-relaxed" style={{ color: 'rgba(245,245,247,0.55)' }}>
+                Tap the mic, speak your note. No typing while walking. Voice memo stored with every door log.
               </p>
             </div>
 
@@ -692,7 +716,7 @@ export default function LandingPage() {
               {
                 n: '2',
                 title: 'Walk and tap',
-                body: 'Tap each door on the map as you knock. Takes 3 seconds per door.',
+                body: 'Tap each door on the map as you knock. One tap — done. Takes 1 second.',
               },
               {
                 n: '3',
@@ -782,7 +806,7 @@ export default function LandingPage() {
 
 
       {/* ════════════════════════════════════════════════════════════════
-          7. PRICING
+          7. PRICING — WAITLIST-FIRST TIERS
       ════════════════════════════════════════════════════════════════ */}
       <section id="pricing" className="scroll-mt-20 px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-5xl">
@@ -795,53 +819,18 @@ export default function LandingPage() {
               className="font-bold tracking-tight text-[#F5F5F7]"
               style={{ fontSize: 'clamp(28px, 4vw, 40px)', letterSpacing: '-0.025em' }}
             >
-              Transparent pricing.
-              <span style={{ color: 'rgba(245,245,247,0.4)' }}> No surprises.</span>
+              Lock your price now.{' '}
+              <span style={{ color: 'rgba(245,245,247,0.4)' }}>It only goes up.</span>
             </h2>
             <p className="mx-auto mt-4 max-w-md text-base" style={{ color: 'rgba(245,245,247,0.55)' }}>
-              Every D2D competitor charges $400 upfront and requires a year contract just to try.
-              Not us.
+              Every D2D competitor charges $400 upfront and requires a year contract.
+              Our founding members lock their price forever. We earn it monthly.
             </p>
           </div>
 
           <div className="grid gap-5 sm:grid-cols-3">
 
-            {/* Free tier */}
-            <div
-              className="rounded-2xl p-7"
-              style={{
-                backgroundColor: '#111118',
-                border: '1px solid rgba(255,255,255,0.06)',
-              }}
-            >
-              <div className="mb-1 text-sm font-semibold" style={{ color: 'rgba(245,245,247,0.5)' }}>Free</div>
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-4xl font-black text-[#F5F5F7]">$0</span>
-                <span className="text-sm" style={{ color: 'rgba(245,245,247,0.4)' }}>/forever</span>
-              </div>
-              <ul className="mt-6 space-y-3">
-                {[
-                  'Unlimited territories',
-                  'Unlimited doors',
-                  'GPS tracking',
-                  'Basic stats',
-                ].map((f) => (
-                  <li key={f} className="flex items-center gap-2.5 text-sm" style={{ color: 'rgba(245,245,247,0.7)' }}>
-                    <IconCheck />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/signup"
-                className="mt-8 flex h-11 w-full items-center justify-center rounded-xl border text-sm font-bold transition-colors hover:border-white/20 hover:bg-white/[0.05]"
-                style={{ borderColor: 'rgba(255,255,255,0.1)', color: '#F5F5F7' }}
-              >
-                Start free
-              </Link>
-            </div>
-
-            {/* Pro tier — highlighted */}
+            {/* Beta tier — most urgent */}
             <div
               className="relative rounded-2xl p-7"
               style={{
@@ -850,27 +839,29 @@ export default function LandingPage() {
                 boxShadow: '0 0 40px rgba(34,197,94,0.12)',
               }}
             >
-              {/* Most Popular badge */}
+              {/* Badge */}
               <div
-                className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs font-bold"
+                className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-3 py-1 text-xs font-bold"
                 style={{ backgroundColor: '#22c55e', color: '#0A0A0F' }}
               >
-                Most Popular
+                25 spots — free for life
               </div>
 
-              <div className="mb-1 text-sm font-semibold" style={{ color: 'rgba(245,245,247,0.5)' }}>Pro</div>
+              <div className="mb-1 text-sm font-semibold" style={{ color: 'rgba(245,245,247,0.5)' }}>Beta</div>
               <div className="flex items-baseline gap-1.5">
-                <span className="text-4xl font-black text-[#22c55e]">$39</span>
-                <span className="text-sm" style={{ color: 'rgba(245,245,247,0.4)' }}>/mo</span>
+                <span className="text-4xl font-black text-[#22c55e]">$0</span>
+                <span className="text-sm" style={{ color: 'rgba(245,245,247,0.4)' }}>/forever</span>
               </div>
-              <ul className="mt-6 space-y-3">
+              <p className="mt-2 text-xs" style={{ color: 'rgba(245,245,247,0.4)' }}>
+                Must log 15+ doors/week to keep access.
+              </p>
+              <ul className="mt-5 space-y-3">
                 {[
-                  'Everything in Free',
-                  'AI territory insights (A–F grading)',
-                  'Pitch recording + AI coaching',
-                  'Photo capture',
-                  'Share cards for social',
-                  'CSV export',
+                  'Full Pro features, free forever',
+                  'Direct founder access (Slack)',
+                  'Shape the product roadmap',
+                  'Founding member badge',
+                  'Audio notes (first access)',
                 ].map((f) => (
                   <li key={f} className="flex items-center gap-2.5 text-sm" style={{ color: 'rgba(245,245,247,0.7)' }}>
                     <IconCheck color="#22c55e" />
@@ -878,8 +869,8 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/signup"
+              <a
+                href="#beta"
                 className="mt-8 flex h-11 w-full items-center justify-center rounded-xl text-sm font-bold transition-all hover:opacity-90"
                 style={{
                   backgroundColor: '#22c55e',
@@ -887,37 +878,81 @@ export default function LandingPage() {
                   boxShadow: '0 4px 20px rgba(34,197,94,0.25)',
                 }}
               >
-                Try free — 14 days
-              </Link>
+                Apply for the Beta
+              </a>
             </div>
 
-            {/* Team tier — coming soon */}
+            {/* Founding Member */}
             <div
-              className="rounded-2xl p-7 opacity-70"
+              className="rounded-2xl p-7"
+              style={{
+                backgroundColor: '#111118',
+                border: '1px solid rgba(34,197,94,0.2)',
+              }}
+            >
+              <div className="mb-1 flex items-center gap-2">
+                <span className="text-sm font-semibold" style={{ color: 'rgba(245,245,247,0.5)' }}>Founding Member</span>
+              </div>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-4xl font-black text-[#F5F5F7]">$19</span>
+                <span className="text-sm" style={{ color: 'rgba(245,245,247,0.4)' }}>/mo</span>
+              </div>
+              <p className="mt-2 text-xs font-semibold" style={{ color: '#22c55e' }}>
+                Locked forever — never goes up.
+              </p>
+              <ul className="mt-5 space-y-3">
+                {[
+                  'Everything in Pro',
+                  'Price locked for life',
+                  'Priority feature input',
+                  'Founding member badge',
+                ].map((f) => (
+                  <li key={f} className="flex items-center gap-2.5 text-sm" style={{ color: 'rgba(245,245,247,0.7)' }}>
+                    <IconCheck color="#22c55e" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="#waitlist"
+                className="mt-8 flex h-11 w-full items-center justify-center rounded-xl border text-sm font-bold transition-colors hover:border-[#22c55e]/40 hover:bg-[#22c55e]/[0.08]"
+                style={{ borderColor: 'rgba(34,197,94,0.25)', color: '#22c55e' }}
+              >
+                Join the Waitlist
+              </a>
+            </div>
+
+            {/* Standard */}
+            <div
+              className="rounded-2xl p-7 opacity-75"
               style={{
                 backgroundColor: '#111118',
                 border: '1px solid rgba(255,255,255,0.06)',
               }}
             >
               <div className="mb-1 flex items-center gap-2">
-                <span className="text-sm font-semibold" style={{ color: 'rgba(245,245,247,0.5)' }}>Team</span>
+                <span className="text-sm font-semibold" style={{ color: 'rgba(245,245,247,0.5)' }}>Standard</span>
                 <span
                   className="rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase"
                   style={{ backgroundColor: 'rgba(255,255,255,0.06)', color: 'rgba(245,245,247,0.4)' }}
                 >
-                  Coming Soon
+                  At launch
                 </span>
               </div>
               <div className="flex items-baseline gap-1.5">
-                <span className="text-4xl font-black text-[#F5F5F7]">$29</span>
-                <span className="text-sm" style={{ color: 'rgba(245,245,247,0.4)' }}>/rep/mo</span>
+                <span className="text-4xl font-black text-[#F5F5F7]">$39</span>
+                <span className="text-sm" style={{ color: 'rgba(245,245,247,0.4)' }}>/mo</span>
               </div>
-              <ul className="mt-6 space-y-3">
+              <p className="mt-2 text-xs" style={{ color: 'rgba(245,245,247,0.35)' }}>
+                When we open to the public.
+              </p>
+              <ul className="mt-5 space-y-3">
                 {[
-                  'Everything in Pro',
-                  'Team leaderboard',
-                  'Manager dashboard',
-                  'Rep performance tracking',
+                  'Unlimited territories',
+                  'AI territory insights (A–F grading)',
+                  'Pitch recording + AI coaching',
+                  'Photo capture',
+                  'CSV export',
                 ].map((f) => (
                   <li key={f} className="flex items-center gap-2.5 text-sm" style={{ color: 'rgba(245,245,247,0.4)' }}>
                     <IconCheck color="rgba(245,245,247,0.25)" />
@@ -925,13 +960,13 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <button
-                disabled
-                className="mt-8 flex h-11 w-full cursor-not-allowed items-center justify-center rounded-xl border text-sm font-bold"
-                style={{ borderColor: 'rgba(255,255,255,0.08)', color: 'rgba(245,245,247,0.3)' }}
+              <a
+                href="#waitlist"
+                className="mt-8 flex h-11 w-full items-center justify-center rounded-xl border text-sm font-bold"
+                style={{ borderColor: 'rgba(255,255,255,0.08)', color: 'rgba(245,245,247,0.4)' }}
               >
-                Join waitlist
-              </button>
+                Join to lock founding price
+              </a>
             </div>
 
           </div>
@@ -1000,7 +1035,95 @@ export default function LandingPage() {
 
 
       {/* ════════════════════════════════════════════════════════════════
-          9. FAQ
+          9. BETA APPLICATION SECTION
+      ════════════════════════════════════════════════════════════════ */}
+      <section
+        id="beta"
+        className="scroll-mt-20 border-t px-5 py-24 sm:px-8 sm:py-32"
+        style={{ borderColor: 'rgba(255,255,255,0.06)' }}
+      >
+        <div className="mx-auto max-w-5xl">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
+
+            {/* Left: Copy */}
+            <div>
+              <div className="mb-5 flex">
+                <SectionLabel>Beta Application</SectionLabel>
+              </div>
+              <h2
+                className="font-bold tracking-tight text-[#F5F5F7]"
+                style={{ fontSize: 'clamp(28px, 4vw, 44px)', letterSpacing: '-0.025em' }}
+              >
+                Apply for the Beta.{' '}
+                <span style={{ color: '#22c55e' }}>Free for life.</span>
+              </h2>
+              <p className="mt-5 text-base leading-relaxed" style={{ color: 'rgba(245,245,247,0.55)' }}>
+                We&apos;re hand-picking 25 reps who are serious about knocking doors.
+                Not tire-kickers. Actual reps in the field every week.
+              </p>
+
+              {/* What beta members get */}
+              <div className="mt-8 space-y-4">
+                {[
+                  {
+                    title: 'Pro access, free forever',
+                    body: 'Every Pro feature at $0 — locked in as long as you log 15+ doors/week.',
+                  },
+                  {
+                    title: 'Direct founder access',
+                    body: 'Private Slack channel. Anthony answers every message personally. Bug in 24h or it&apos;s free.',
+                  },
+                  {
+                    title: 'Shape the product',
+                    body: 'Vote on features. Your feedback ships within 2 weeks. You&apos;re building this with us.',
+                  },
+                  {
+                    title: 'Audio notes (first access)',
+                    body: 'Beta testers get audio voice memo logging before anyone else.',
+                  },
+                ].map((item) => (
+                  <div key={item.title} className="flex items-start gap-3">
+                    <div
+                      className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
+                      style={{ background: 'rgba(34,197,94,0.12)', border: '1px solid rgba(34,197,94,0.25)' }}
+                    >
+                      <IconCheck color="#22c55e" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-[#F5F5F7]">{item.title}</p>
+                      <p className="mt-0.5 text-sm" style={{ color: 'rgba(245,245,247,0.5)' }}
+                        dangerouslySetInnerHTML={{ __html: item.body }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Scarcity note */}
+              <div
+                className="mt-8 rounded-xl border px-4 py-3"
+                style={{ borderColor: 'rgba(34,197,94,0.2)', backgroundColor: 'rgba(34,197,94,0.05)' }}
+              >
+                <p className="text-sm" style={{ color: 'rgba(245,245,247,0.65)' }}>
+                  <span className="font-semibold text-[#22c55e]">Why only 25?</span>{' '}
+                  We want to personally onboard every beta rep. That&apos;s only possible at 25.
+                  Once spots are filled, the next opening is Founding Member pricing at $19/mo.
+                </p>
+              </div>
+            </div>
+
+            {/* Right: Beta application form */}
+            <div>
+              <BetaApplication />
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+
+      {/* ════════════════════════════════════════════════════════════════
+          10. FAQ
       ════════════════════════════════════════════════════════════════ */}
       <section
         className="border-t px-5 py-24 sm:px-8 sm:py-32"
@@ -1024,13 +1147,13 @@ export default function LandingPage() {
 
 
       {/* ════════════════════════════════════════════════════════════════
-          10. FINAL CTA
+          11. FINAL CTA — WAITLIST
       ════════════════════════════════════════════════════════════════ */}
       <section
-        className="relative overflow-hidden border-t px-5 py-28 text-center sm:px-8 sm:py-36"
+        className="relative overflow-hidden border-t px-5 py-28 sm:px-8 sm:py-36"
         style={{ borderColor: 'rgba(255,255,255,0.06)' }}
       >
-        {/* Orange radial glow behind the button */}
+        {/* Green radial glow */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -1041,7 +1164,7 @@ export default function LandingPage() {
           }}
         />
 
-        <div className="relative mx-auto max-w-xl">
+        <div className="relative mx-auto max-w-xl text-center">
           <h2
             className="font-black leading-tight tracking-tight text-[#F5F5F7]"
             style={{ fontSize: 'clamp(32px, 5vw, 56px)', letterSpacing: '-0.03em' }}
@@ -1052,24 +1175,21 @@ export default function LandingPage() {
             className="mx-auto mt-5 max-w-sm text-[17px]"
             style={{ color: 'rgba(245,245,247,0.55)' }}
           >
-            Start tracking free. Takes 60 seconds.
+            Join the waitlist. Lock your founding price before we launch.
           </p>
-          <div className="mt-10">
-            <Link
-              href="/signup"
-              className="inline-flex h-14 items-center justify-center gap-2.5 rounded-xl px-10 text-base font-bold transition-all hover:opacity-90 hover:scale-105"
-              style={{
-                backgroundColor: '#22c55e',
-                color: '#0A0A0F',
-                boxShadow: '0 0 50px rgba(34,197,94,0.35)',
-              }}
-            >
-              Start tracking free
-              <IconArrow />
-            </Link>
+
+          {/* Live counter */}
+          <div className="mt-6 flex justify-center">
+            <WaitlistCounter seed={247} />
           </div>
+
+          {/* Waitlist form */}
+          <div className="mt-6">
+            <WaitlistForm variant="section" />
+          </div>
+
           <p className="mt-4 text-xs" style={{ color: 'rgba(245,245,247,0.3)' }}>
-            No credit card. No demo. No annual contract.
+            No credit card. No demo call. No annual contract.
           </p>
         </div>
       </section>
@@ -1096,7 +1216,7 @@ export default function LandingPage() {
               <span className="text-xs font-black text-[#22c55e]">D</span>
             </div>
             <span className="text-sm font-semibold text-[#F5F5F7]">Doors</span>
-            <span className="text-xs" style={{ color: 'rgba(245,245,247,0.3)' }}>&copy; 2026</span>
+            <span className="text-xs" style={{ color: 'rgba(245,245,247,0.25)' }}>&copy; 2026</span>
             <span className="text-xs" style={{ color: 'rgba(245,245,247,0.25)' }}>
               &middot; Built in Charlotte, NC
             </span>
@@ -1125,14 +1245,7 @@ export default function LandingPage() {
             >
               Log in
             </Link>
-            <Link
-              href="/signup"
-              className="text-xs font-semibold text-[#22c55e] transition-opacity hover:opacity-80"
-            >
-              Sign up free
-            </Link>
           </nav>
-
         </div>
       </footer>
 

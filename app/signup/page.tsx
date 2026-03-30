@@ -95,6 +95,20 @@ export default function SignupPage() {
           <p className="mt-1.5 text-sm text-muted-foreground">Create your account</p>
         </div>
 
+        {/* Beta notice — directs new visitors to the waitlist */}
+        <div
+          className="mb-7 rounded-xl border px-4 py-3 text-center"
+          style={{ borderColor: 'rgba(34,197,94,0.2)', backgroundColor: 'rgba(34,197,94,0.05)' }}
+        >
+          <p className="text-sm" style={{ color: 'rgba(245,245,247,0.65)' }}>
+            New to Doors?{' '}
+            <Link href="/#beta" className="font-semibold text-[#22c55e] hover:underline">
+              Apply for the beta
+            </Link>{' '}
+            — 25 spots, free for life.
+          </p>
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label
