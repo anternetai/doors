@@ -247,7 +247,7 @@ export default function LandingPage() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5 sm:px-8">
 
           {/* Logo */}
-          <DoorsLogo iconSize={24} textSize="text-lg" />
+          <DoorsLogo height={28} />
 
           {/* Nav links — desktop */}
           <nav className="hidden items-center gap-7 sm:flex" aria-label="Primary navigation">
@@ -1199,7 +1199,7 @@ export default function LandingPage() {
 
           {/* Brand */}
           <div className="flex items-center gap-2.5">
-            <DoorsLogo iconSize={20} textSize="text-sm" />
+            <DoorsLogo height={20} />
             <span className="text-xs" style={{ color: 'rgba(245,245,247,0.25)' }}>&copy; 2026</span>
             <span className="text-xs" style={{ color: 'rgba(245,245,247,0.25)' }}>
               &middot; Built in Charlotte, NC
