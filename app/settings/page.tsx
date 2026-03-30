@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { LogOut, User } from 'lucide-react'
 import { DoorsNav } from '@/components/doors-nav'
+import { ThemeToggle } from '@/components/theme-toggle'
 import { createClient } from '@/lib/supabase/client'
 
 export default function SettingsPage() {
@@ -47,6 +48,17 @@ export default function SettingsPage() {
                 <p className="text-xs text-muted-foreground mt-0.5">{email}</p>
               )}
             </div>
+          </div>
+        </div>
+
+        {/* Theme */}
+        <div className="rounded-2xl border border-white/[0.06] bg-[#111118]/80 p-5 backdrop-blur-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-foreground">Theme</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Dark, light, or sun mode for outdoor use</p>
+            </div>
+            <ThemeToggle />
           </div>
         </div>
 
