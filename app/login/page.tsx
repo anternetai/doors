@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import { DoorsIcon, DoorsWordmark } from '@/components/doors-icon'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -41,13 +42,10 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         {/* Logo / Brand */}
         <div className="mb-10 text-center">
-          <div
-            className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#1a2e1a] border border-[#22c55e]/25"
-            style={{ boxShadow: '0 0 32px rgba(34, 197, 94, 0.2)' }}
-          >
-            <span className="text-2xl font-bold text-[#22c55e]" style={{ letterSpacing: '-0.02em' }}>D</span>
+          <div className="mb-4 flex justify-center">
+            <DoorsIcon size={48} />
           </div>
-          <h1 className="text-2xl font-bold text-foreground" style={{ letterSpacing: '-0.02em' }}>Doors</h1>
+          <DoorsWordmark className="text-2xl text-foreground" />
           <p className="mt-1.5 text-sm text-muted-foreground">Sign in to your account</p>
         </div>
 

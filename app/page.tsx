@@ -4,6 +4,7 @@ import { FaqAccordion } from './landing/faq-accordion'
 import { WaitlistCounter } from '@/components/waitlist-counter'
 import { WaitlistForm } from '@/components/waitlist-form'
 import { BetaApplication } from '@/components/beta-application'
+import { DoorsLogo } from '@/components/doors-icon'
 
 export const metadata: Metadata = {
   title: 'Doors — The tracker built for reps who knock.',
@@ -246,15 +247,7 @@ export default function LandingPage() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5 sm:px-8">
 
           {/* Logo */}
-          <div className="flex items-center gap-2.5">
-            <div
-              className="flex h-8 w-8 items-center justify-center rounded-lg"
-              style={{ background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)' }}
-            >
-              <span className="text-sm font-black text-[#22c55e]">D</span>
-            </div>
-            <span className="text-base font-bold tracking-tight text-[#F5F5F7]">Doors</span>
-          </div>
+          <DoorsLogo iconSize={24} textSize="text-lg" />
 
           {/* Nav links — desktop */}
           <nav className="hidden items-center gap-7 sm:flex" aria-label="Primary navigation">
@@ -1206,16 +1199,7 @@ export default function LandingPage() {
 
           {/* Brand */}
           <div className="flex items-center gap-2.5">
-            <div
-              className="flex h-7 w-7 items-center justify-center rounded-lg"
-              style={{
-                background: 'rgba(34,197,94,0.1)',
-                border: '1px solid rgba(34,197,94,0.25)',
-              }}
-            >
-              <span className="text-xs font-black text-[#22c55e]">D</span>
-            </div>
-            <span className="text-sm font-semibold text-[#F5F5F7]">Doors</span>
+            <DoorsLogo iconSize={20} textSize="text-sm" />
             <span className="text-xs" style={{ color: 'rgba(245,245,247,0.25)' }}>&copy; 2026</span>
             <span className="text-xs" style={{ color: 'rgba(245,245,247,0.25)' }}>
               &middot; Built in Charlotte, NC

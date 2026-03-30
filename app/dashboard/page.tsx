@@ -7,6 +7,7 @@ import { DoorsNav } from '@/components/doors-nav'
 import { OnboardingFlow } from '@/components/onboarding-flow'
 import { DailySummary } from '@/components/daily-summary'
 import { CommissionDisplay } from '@/components/commission-display'
+import { DoorsIcon } from '@/components/doors-icon'
 import type { TerritoryWithKpis } from '@/lib/types'
 
 export default function TerritoriesPage() {
@@ -101,12 +102,7 @@ export default function TerritoriesPage() {
       {/* Header */}
       <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-background/90 px-4 py-4 backdrop-blur-xl">
         <div className="flex items-center gap-2.5">
-          <div
-            className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1a2e1a] border border-[#22c55e]/25"
-            style={{ boxShadow: '0 0 16px rgba(34, 197, 94, 0.15)' }}
-          >
-            <span className="text-sm font-bold text-[#22c55e]" style={{ letterSpacing: '-0.02em' }}>D</span>
-          </div>
+          <DoorsIcon size={24} />
           <h1 className="text-lg font-bold heading-tight">Territories</h1>
         </div>
         <button

@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { DoorOpen, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
+import { DoorsIcon } from '@/components/doors-icon'
 
 interface Props {
   onCreated: () => void
@@ -48,11 +49,8 @@ export function OnboardingFlow({ onCreated }: Props) {
       style={{ background: 'radial-gradient(ellipse at 50% 35%, rgba(34,197,94,0.07) 0%, transparent 55%)' }}
     >
       {/* Brand mark */}
-      <div
-        className="mb-6 flex h-18 w-18 items-center justify-center rounded-2xl bg-[#1a2e1a] border border-[#22c55e]/25"
-        style={{ width: 72, height: 72, boxShadow: '0 0 40px rgba(34, 197, 94, 0.2)' }}
-      >
-        <DoorOpen size={34} className="text-[#22c55e]" />
+      <div className="mb-6">
+        <DoorsIcon size={56} />
       </div>
 
       {/* Welcome copy */}

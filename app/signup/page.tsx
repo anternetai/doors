@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import { DoorsIcon, DoorsWordmark } from '@/components/doors-icon'
 
 export default function SignupPage() {
   const router = useRouter()
@@ -56,11 +57,8 @@ export default function SignupPage() {
         style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(34,197,94,0.06) 0%, transparent 60%)' }}
       >
         <div className="w-full max-w-sm text-center">
-          <div
-            className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#1a2e1a] border border-[#22c55e]/25"
-            style={{ boxShadow: '0 0 32px rgba(34, 197, 94, 0.2)' }}
-          >
-            <span className="text-2xl font-bold text-[#22c55e]" style={{ letterSpacing: '-0.02em' }}>D</span>
+          <div className="mb-5 flex justify-center">
+            <DoorsIcon size={48} />
           </div>
           <h2 className="text-xl font-bold text-foreground" style={{ letterSpacing: '-0.02em' }}>Check your email</h2>
           <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">
@@ -85,13 +83,10 @@ export default function SignupPage() {
       <div className="w-full max-w-sm">
         {/* Logo / Brand */}
         <div className="mb-10 text-center">
-          <div
-            className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#1a2e1a] border border-[#22c55e]/25"
-            style={{ boxShadow: '0 0 32px rgba(34, 197, 94, 0.2)' }}
-          >
-            <span className="text-2xl font-bold text-[#22c55e]" style={{ letterSpacing: '-0.02em' }}>D</span>
+          <div className="mb-4 flex justify-center">
+            <DoorsIcon size={48} />
           </div>
-          <h1 className="text-2xl font-bold text-foreground" style={{ letterSpacing: '-0.02em' }}>Doors</h1>
+          <DoorsWordmark className="text-2xl text-foreground" />
           <p className="mt-1.5 text-sm text-muted-foreground">Create your account</p>
         </div>
 

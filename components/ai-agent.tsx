@@ -2,14 +2,15 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import { MessageCircle, X, Send, DoorOpen } from 'lucide-react'
+import { MessageCircle, X, Send } from 'lucide-react'
+import { DoorsIcon } from '@/components/doors-icon'
 
 interface Message {
   role: 'user' | 'assistant'
   content: string
 }
 
-const PUBLIC_ROUTES = ['/', '/login', '/signup', '/landing']
+const PUBLIC_ROUTES = ['/', '/login', '/signup']
 
 export function AIAgent() {
   const pathname = usePathname()
@@ -117,12 +118,7 @@ export function AIAgent() {
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-3.5 shrink-0">
           <div className="flex items-center gap-2.5">
-            <div
-              className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0d1f14] border border-[#22c55e]/25"
-              style={{ boxShadow: '0 0 12px rgba(34,197,94,0.15)' }}
-            >
-              <DoorOpen size={16} className="text-[#22c55e]" />
-            </div>
+            <DoorsIcon size={20} />
             <span className="text-sm font-semibold text-foreground">Doors</span>
             <span className="text-[10px] text-[#22c55e] bg-[#22c55e]/10 border border-[#22c55e]/20 px-1.5 py-0.5 rounded-md font-medium">
               AI Coach
