@@ -99,9 +99,10 @@ export default function TerritoryDetailPage({
   async function handleSaveVisit(visit: DoorVisit) {
     if (!pendingDoor) return
     try {
+      let res: Response
       if (pendingDoor.isRevisit && pendingDoor.door) {
         // Add visit to existing door
-        await fetch(
+        res = await fetch(
           `/api/territories/${encodeURIComponent(name)}/doors/${pendingDoor.door.id}`,
           {
             method: 'PATCH',
@@ -111,7 +112,7 @@ export default function TerritoryDetailPage({
         )
       } else {
         // Create new door
-        await fetch(`/api/territories/${encodeURIComponent(name)}/doors`, {
+        res = await fetch(`/api/territories/${encodeURIComponent(name)}/doors`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -121,21 +122,30 @@ export default function TerritoryDetailPage({
           }),
         })
       }
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}))
+        throw new Error((errData as { error?: string }).error || 'Failed to save')
+      }
       setPendingDoor(null)
       await fetchData()
-    } catch {
-      alert('Failed to save visit')
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Failed to save visit')
     }
   }
 
   async function handleDeleteDoor(door: TerritoryDoor) {
     if (!confirm('Delete this door?')) return
-    await fetch(
-      `/api/territories/${encodeURIComponent(name)}/doors/${door.id}`,
-      { method: 'DELETE' }
-    )
-    setSelectedDoor(null)
-    await fetchData()
+    try {
+      const res = await fetch(
+        `/api/territories/${encodeURIComponent(name)}/doors/${door.id}`,
+        { method: 'DELETE' }
+      )
+      if (!res.ok) throw new Error('Failed to delete door')
+      setSelectedDoor(null)
+      await fetchData()
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Failed to delete door')
+    }
   }
 
   function fmtPct(n: number) {

@@ -21,22 +21,20 @@ export function AIAgent() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  // Hide on public routes
-  if (PUBLIC_ROUTES.includes(pathname)) return null
-
   // Auto-scroll to bottom on new messages
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, isLoading])
 
   // Focus input when opened
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 100)
     }
   }, [isOpen])
+
+  // Hide on public routes — after all hooks
+  if (PUBLIC_ROUTES.includes(pathname)) return null
 
   const welcomeMessage: Message = {
     role: 'assistant',

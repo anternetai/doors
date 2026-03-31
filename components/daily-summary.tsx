@@ -12,8 +12,8 @@ export function DailySummary() {
 
   useEffect(() => {
     fetch('/api/stats/today')
-      .then((r) => r.json())
-      .then((d: TodayStats) => setStats(d))
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: TodayStats | null) => { if (d) setStats(d) })
       .catch(() => {/* silently skip */})
       .finally(() => setLoading(false))
   }, [])

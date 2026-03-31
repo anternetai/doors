@@ -12,7 +12,6 @@ export default function SignupPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-  const [done, setDone] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -48,31 +47,6 @@ export default function SignupPage() {
 
     router.push('/dashboard')
     router.refresh()
-  }
-
-  if (done) {
-    return (
-      <div
-        className="flex min-h-screen flex-col items-center justify-center px-4"
-        style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(34,197,94,0.06) 0%, transparent 60%)' }}
-      >
-        <div className="w-full max-w-sm text-center">
-          <div className="mb-5 flex justify-center">
-            <DoorsIcon size={48} />
-          </div>
-          <h2 className="text-xl font-bold text-foreground" style={{ letterSpacing: '-0.02em' }}>Check your email</h2>
-          <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">
-            We sent a confirmation link to <strong className="text-foreground">{email}</strong>. Click it to activate your account.
-          </p>
-          <Link
-            href="/login"
-            className="mt-7 inline-block text-sm text-[#22c55e] hover:underline"
-          >
-            Back to sign in
-          </Link>
-        </div>
-      </div>
-    )
   }
 
   return (

@@ -180,7 +180,9 @@ export default function TerritoryMapInner({
               weight: hasMultipleVisits ? 1.5 : 0,
             }}
             eventHandlers={{
-              click() {
+              click(e) {
+                // Stop propagation so the map-level click handler doesn't also fire
+                e.originalEvent.stopPropagation()
                 onDoorClick(door)
               },
             }}

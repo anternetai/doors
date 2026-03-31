@@ -49,8 +49,7 @@
   --color-doors-green: #1a2e1a;
   --color-doors-green-light: #2d5a2d;
   --color-doors-green-bright: #22c55e;
-  --color-doors-orange: #22c55e;
-  --color-doors-orange-light: #4ade80;
+  --color-doors-green-accent: #4ade80;
 }
 
 /* Dark theme as default */
@@ -229,7 +228,7 @@ button, a, [role="button"] {
 }
 
 /* Green glow utility */
-.glow-orange {
+.glow-green {
   box-shadow: 0 0 40px rgba(34, 197, 94, 0.15);
 }
 
