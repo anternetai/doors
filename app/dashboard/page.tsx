@@ -249,15 +249,38 @@ export default function TerritoriesPage() {
                   </div>
                 </div>
 
-                {t.kpis.total_doors > 0 && (
-                  <div className="mt-3.5 flex items-center gap-1.5 pt-3.5 border-t border-white/[0.04]">
-                    <TrendingUp size={11} className="text-muted-foreground" />
-                    <span className="text-[11px] text-muted-foreground">
-                      {t.kpis.doors_answered} answered · {t.kpis.doors_pitched} pitched ·{' '}
-                      {t.kpis.doors_closed} closed
-                    </span>
-                  </div>
-                )}
+                {t.kpis.total_doors > 0 && (() => {
+                  const notHome = Math.max(0, t.kpis.total_doors - t.kpis.doors_answered)
+                  const answeredOnly = Math.max(0, t.kpis.doors_answered - t.kpis.doors_pitched)
+                  const positive = Math.max(0, t.kpis.doors_pitched - t.kpis.doors_not_interested)
+                  const notInterested = t.kpis.doors_not_interested
+                  const total = t.kpis.total_doors
+                  return (
+                    <div className="mt-3.5 pt-3.5 border-t border-white/[0.04] space-y-2">
+                      <div className="flex h-1.5 w-full overflow-hidden rounded-full bg-white/[0.04]">
+                        {notHome > 0 && (
+                          <div style={{ width: `${(notHome / total) * 100}%`, backgroundColor: '#6b7280' }} />
+                        )}
+                        {answeredOnly > 0 && (
+                          <div style={{ width: `${(answeredOnly / total) * 100}%`, backgroundColor: '#eab308' }} />
+                        )}
+                        {positive > 0 && (
+                          <div style={{ width: `${(positive / total) * 100}%`, backgroundColor: '#22c55e' }} />
+                        )}
+                        {notInterested > 0 && (
+                          <div style={{ width: `${(notInterested / total) * 100}%`, backgroundColor: '#ef4444' }} />
+                        )}
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <TrendingUp size={11} className="text-muted-foreground" />
+                        <span className="text-[11px] text-muted-foreground">
+                          {notHome} not home · {answeredOnly} answered · {t.kpis.doors_pitched} pitched ·{' '}
+                          {t.kpis.doors_closed} closed
+                        </span>
+                      </div>
+                    </div>
+                  )
+                })()}
               </Link>
 
               <button

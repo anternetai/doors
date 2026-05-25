@@ -245,6 +245,7 @@ export default function TerritoryDetailPage({
         {/* Map legend */}
         <div className="absolute bottom-4 left-4 z-[400] flex flex-col gap-1.5 rounded-xl border border-white/[0.06] bg-[#111118]/90 px-3 py-2.5 backdrop-blur-sm text-xs">
           <LegendItem color="#6b7280" label="Not home" />
+          <LegendItem color="#eab308" label="Answered" />
           <LegendItem color="#22c55e" label="Positive" />
           <LegendItem color="#ef4444" label="Not interested" />
           <div className="flex items-center gap-1.5 text-muted-foreground mt-0.5 border-t border-white/[0.04] pt-1.5">

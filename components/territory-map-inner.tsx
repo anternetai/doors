@@ -10,8 +10,8 @@ function getDoorColor(door: TerritoryDoor): string {
   const latest = door.visits[door.visits.length - 1]
   if (latest.not_interested) return '#ef4444' // red
   if (latest.closed || latest.pitched) return '#22c55e' // green
-  if (!latest.answered) return '#6b7280' // gray — no answer
-  return '#6b7280'
+  if (latest.answered) return '#eab308' // amber — answered, not pitched
+  return '#6b7280' // gray — no answer / not home
 }
 
 // ---- proximity helpers ------------------------------------------------------
