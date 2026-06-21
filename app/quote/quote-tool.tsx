@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import {
-  ArrowLeft, Minus, Plus, X, Check, Copy, MessageSquare, ExternalLink, Loader2,
+  ArrowLeft, Minus, Plus, X, Check, Copy, MessageSquare, ExternalLink, Loader2, Sun, Moon,
 } from 'lucide-react'
 import {
   WINDOW_TYPES, computeQuote, lineKey, unitPrice,
@@ -111,6 +111,23 @@ export function QuoteTool() {
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<{ token: string; url: string; total: number } | null>(null)
   const [copied, setCopied] = useState(false)
+  const [sun, setSun] = useState(false)
+
+  // Sun mode (high-contrast for direct sunlight) — toggles the app's .sun theme.
+  useEffect(() => {
+    try {
+      if (localStorage.getItem('doors_sun') === '1') {
+        document.documentElement.classList.add('sun')
+        setSun(true)
+      }
+    } catch {}
+  }, [])
+  function toggleSun() {
+    const next = !sun
+    setSun(next)
+    document.documentElement.classList.toggle('sun', next)
+    try { localStorage.setItem('doors_sun', next ? '1' : '0') } catch {}
+  }
 
   // Load persisted tally
   useEffect(() => {
@@ -282,9 +299,18 @@ export function QuoteTool() {
           <ArrowLeft size={18} />
         </button>
         <h1 className="text-lg font-semibold text-foreground heading-tight">New Quote</h1>
-        {quote.windowCount > 0 && (
-          <span className="ml-auto text-sm text-muted-foreground">{quote.windowCount} windows</span>
-        )}
+        <div className="ml-auto flex items-center gap-3">
+          {quote.windowCount > 0 && (
+            <span className="text-sm text-muted-foreground">{quote.windowCount} windows</span>
+          )}
+          <button
+            onClick={toggleSun}
+            aria-label="Toggle sun mode"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.06] text-muted-foreground"
+          >
+            {sun ? <Moon size={18} /> : <Sun size={18} />}
+          </button>
+        </div>
       </header>
 
       {/* Mode bar */}
