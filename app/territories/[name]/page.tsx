@@ -2,7 +2,7 @@
 
 import { use, useEffect, useState, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { ArrowLeft, ChevronDown, ChevronUp, Info, CheckCircle, AlertTriangle, X, Trash2 } from 'lucide-react'
+import { ArrowLeft, ChevronDown, ChevronUp, Info, CheckCircle, AlertTriangle, X, Trash2, Calculator } from 'lucide-react'
 import { TerritoryMap } from '@/components/territory-map'
 import { DoorLogOverlay } from '@/components/door-log-overlay'
 import { SessionTimer } from '@/components/session-timer'
@@ -253,6 +253,15 @@ export default function TerritoryDetailPage({
             Ring = revisited
           </div>
         </div>
+
+        {/* Build Quote — in-field window tally → CRM quote */}
+        <button
+          onClick={() => router.push('/quote')}
+          className="absolute bottom-4 right-4 z-[400] flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground active:scale-[0.97] transition-transform"
+          style={{ boxShadow: '0 0 24px rgba(34,197,94,0.35)' }}
+        >
+          <Calculator size={16} /> Quote
+        </button>
       </div>
 
       {/* Recommendations + benchmarks */}
