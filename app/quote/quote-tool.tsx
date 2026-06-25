@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import {
-  ArrowLeft, Minus, Plus, X, Check, Copy, MessageSquare, ExternalLink, Loader2, Sun, Moon,
+  ArrowLeft, Minus, Plus, X, Check, Copy, MessageSquare, ExternalLink, Loader2, Sun, Moon, PlusCircle,
 } from 'lucide-react'
 import {
   WINDOW_TYPES, computeQuote, lineKey, unitPrice,
@@ -20,6 +20,15 @@ const TYPE_LABEL: Record<WindowType, string> = { standard: 'Standard', picture: 
 
 const LS_COUNTS = 'dq_quote_counts'
 const LS_MODE = 'dq_quote_mode'
+
+interface ExtraLine {
+  id: string
+  name: string
+  price: string
+}
+
+let _lineId = 0
+function newLineId() { return `line-${++_lineId}` }
 
 function parseKey(k: string): { type: WindowType; story: Story; coverage: Coverage } {
   const [type, story, coverage] = k.split('-')
@@ -96,7 +105,7 @@ export function QuoteTool() {
   const router = useRouter()
   const search = useSearchParams()
 
-  const [screen, setScreen] = useState<'tally' | 'customer' | 'success'>('tally')
+  const [screen, setScreen] = useState<'tally' | 'customer' | 'success' | 'edit'>('tally')
   const [story, setStory] = useState<Story>(1)
   const [coverage, setCoverage] = useState<Coverage>('exterior')
   const [counts, setCounts] = useState<Record<string, number>>({})
@@ -107,11 +116,19 @@ export function QuoteTool() {
   const [email, setEmail] = useState('')
   const [address, setAddress] = useState('')
 
+  const [extraLines, setExtraLines] = useState<ExtraLine[]>([])
+
   const [creating, setCreating] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<{ token: string; url: string; total: number } | null>(null)
   const [copied, setCopied] = useState(false)
   const [sun, setSun] = useState(false)
+
+  // Edit-after-creation state
+  const [editLines, setEditLines] = useState<{ id: string; name: string; price: string }[]>([])
+  const [editFetching, setEditFetching] = useState(false)
+  const [editSaving, setEditSaving] = useState(false)
+  const [editError, setEditError] = useState<string | null>(null)
 
   // Sun mode (high-contrast for direct sunlight) — toggles the app's .sun theme.
   useEffect(() => {
@@ -165,13 +182,27 @@ export function QuoteTool() {
 
   function resetAll() {
     setCounts({}); setFirst(''); setLast(''); setPhone(''); setEmail(''); setAddress('')
-    setResult(null); setError(null); setScreen('tally')
+    setResult(null); setError(null); setExtraLines([]); setScreen('tally')
     try { localStorage.removeItem(LS_COUNTS) } catch {}
   }
+
+  function addExtraLine() {
+    setExtraLines((prev) => [...prev, { id: newLineId(), name: '', price: '' }])
+  }
+  function updateExtraLine(id: string, field: 'name' | 'price', value: string) {
+    setExtraLines((prev) => prev.map((l) => l.id === id ? { ...l, [field]: value } : l))
+  }
+  function removeExtraLine(id: string) {
+    setExtraLines((prev) => prev.filter((l) => l.id !== id))
+  }
+
+  const validExtraLines = extraLines.filter((l) => l.name.trim() && parseFloat(l.price) > 0)
+  const extraTotal = validExtraLines.reduce((sum, l) => sum + (parseFloat(l.price) || 0), 0)
 
   async function createQuote() {
     setCreating(true); setError(null)
     try {
+      const grandTotal = quote.total + extraTotal
       const res = await fetch('/api/quote', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -182,16 +213,66 @@ export function QuoteTool() {
           address: address.trim(),
           total: quote.total,
           description: quote.breakdownText,
+          extra_lines: validExtraLines.map((l) => ({
+            name: l.name.trim(),
+            price: parseFloat(l.price),
+          })),
         }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Failed to create quote')
-      setResult({ token: data.token, url: data.url, total: quote.total })
+      setResult({ token: data.token, url: data.url, total: grandTotal })
       setScreen('success')
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Something went wrong')
     } finally {
       setCreating(false)
+    }
+  }
+
+  async function openEditScreen() {
+    if (!result) return
+    setEditFetching(true); setEditError(null)
+    try {
+      const res = await fetch(`/api/quote/${result.token}`)
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Failed to load quote')
+      const lines = (data.services ?? []).map((s: { name: string; price: number }) => ({
+        id: newLineId(),
+        name: s.name,
+        price: String(s.price),
+      }))
+      setEditLines(lines)
+      setScreen('edit' as typeof screen)
+    } catch (e) {
+      setEditError(e instanceof Error ? e.message : 'Failed to load')
+    } finally {
+      setEditFetching(false)
+    }
+  }
+
+  async function saveEditLines() {
+    if (!result) return
+    setEditSaving(true); setEditError(null)
+    const services = editLines
+      .filter((l) => l.name.trim() && parseFloat(l.price) > 0)
+      .map((l) => ({ name: l.name.trim(), price: parseFloat(l.price) }))
+    if (services.length === 0) { setEditError('Add at least one service.'); setEditSaving(false); return }
+    try {
+      const res = await fetch(`/api/quote/${result.token}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ services }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Failed to save')
+      const newTotal = services.reduce((s, l) => s + l.price, 0)
+      setResult((prev) => prev ? { ...prev, total: newTotal } : prev)
+      setScreen('success')
+    } catch (e) {
+      setEditError(e instanceof Error ? e.message : 'Save failed')
+    } finally {
+      setEditSaving(false)
     }
   }
 
@@ -235,9 +316,88 @@ export function QuoteTool() {
           </a>
         </div>
 
-        <button onClick={resetAll} className="mt-8 text-sm text-muted-foreground underline underline-offset-2 hover:text-foreground">
+        <button
+          onClick={openEditScreen}
+          disabled={editFetching}
+          className="mt-4 flex items-center justify-center gap-2 text-sm text-muted-foreground underline underline-offset-2 hover:text-foreground disabled:opacity-40"
+        >
+          {editFetching ? <Loader2 size={14} className="animate-spin" /> : null}
+          Edit quote lines
+        </button>
+        {editError && <p className="mt-2 text-xs text-destructive">{editError}</p>}
+        <button onClick={resetAll} className="mt-4 text-sm text-muted-foreground underline underline-offset-2 hover:text-foreground">
           New quote
         </button>
+      </div>
+    )
+  }
+
+  // ─────────────────────────── EDIT ───────────────────────────
+  if (screen === 'edit') {
+    return (
+      <div className="flex min-h-dvh flex-col">
+        <header className="flex items-center gap-3 px-4 py-4">
+          <button onClick={() => setScreen('success')} className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.06] text-muted-foreground">
+            <ArrowLeft size={18} />
+          </button>
+          <h1 className="text-lg font-semibold text-foreground heading-tight">Edit Quote</h1>
+        </header>
+
+        <div className="flex-1 space-y-3 px-4 pb-40">
+          <p className="text-xs text-muted-foreground">Change names, prices, or add/remove lines. Changes are saved to the existing quote link.</p>
+
+          {editLines.map((line, i) => (
+            <div key={line.id} className="flex items-center gap-2 rounded-xl border border-border bg-card px-3 py-2.5">
+              <input
+                type="text"
+                value={line.name}
+                onChange={(e) => setEditLines((prev) => prev.map((l) => l.id === line.id ? { ...l, name: e.target.value } : l))}
+                placeholder="Service name"
+                className="flex-1 min-w-0 bg-transparent text-sm text-foreground placeholder-muted-foreground focus:outline-none"
+              />
+              <span className="text-muted-foreground text-sm">$</span>
+              <input
+                type="number"
+                inputMode="decimal"
+                value={line.price}
+                onChange={(e) => setEditLines((prev) => prev.map((l) => l.id === line.id ? { ...l, price: e.target.value } : l))}
+                placeholder="0"
+                className="w-20 bg-transparent text-sm text-right text-foreground placeholder-muted-foreground focus:outline-none tabular-nums"
+              />
+              {editLines.length > 1 && (
+                <button
+                  onClick={() => setEditLines((prev) => prev.filter((l) => l.id !== line.id))}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground"
+                >
+                  <X size={14} />
+                </button>
+              )}
+            </div>
+          ))}
+
+          <button
+            onClick={() => setEditLines((prev) => [...prev, { id: newLineId(), name: '', price: '' }])}
+            className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-border py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <PlusCircle size={15} /> Add line
+          </button>
+
+          {editError && <p className="text-sm text-destructive">{editError}</p>}
+        </div>
+
+        <div className="fixed inset-x-0 bottom-0 border-t border-border bg-background/95 px-4 py-4 backdrop-blur-xl">
+          <div className="mb-2 text-right text-sm text-muted-foreground tabular-nums">
+            Total: {fmt(editLines.reduce((s, l) => s + (parseFloat(l.price) || 0), 0))}
+          </div>
+          <button
+            onClick={saveEditLines}
+            disabled={editSaving}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-base font-semibold text-primary-foreground disabled:opacity-40 active:scale-[0.98] transition-transform"
+            style={{ boxShadow: '0 0 20px rgba(34,197,94,0.25)' }}
+          >
+            {editSaving ? <><Loader2 size={18} className="animate-spin" /> Saving…</> : 'Save Changes'}
+          </button>
+        </div>
       </div>
     )
   }
@@ -256,10 +416,16 @@ export function QuoteTool() {
         <div className="flex-1 space-y-4 px-4 pb-40">
           <div className="rounded-xl border border-primary/25 bg-accent/40 px-4 py-3">
             <div className="flex items-baseline justify-between">
-              <span className="text-sm text-muted-foreground">{quote.windowCount} windows</span>
-              <span className="text-2xl font-bold text-primary heading-tighter">{fmt(quote.total)}</span>
+              <span className="text-sm text-muted-foreground">
+                {quote.windowCount > 0 ? `${quote.windowCount} windows` : ''}
+                {quote.windowCount > 0 && validExtraLines.length > 0 ? ' + ' : ''}
+                {validExtraLines.length > 0 ? `${validExtraLines.length} extra` : ''}
+              </span>
+              <span className="text-2xl font-bold text-primary heading-tighter">{fmt(quote.total + extraTotal)}</span>
             </div>
-            <p className="mt-0.5 text-xs text-muted-foreground line-through">Normally {fmt(quote.normalPrice)}</p>
+            {quote.windowCount > 0 && extraTotal === 0 && (
+              <p className="mt-0.5 text-xs text-muted-foreground line-through">Normally {fmt(quote.normalPrice)}</p>
+            )}
           </div>
 
           <AddressInput value={address} onChange={setAddress} />
@@ -372,7 +538,7 @@ export function QuoteTool() {
       <div className="mt-4 flex-1 space-y-2 overflow-y-auto px-4 pb-44">
         {entries.length > 0 && (
           <div className="flex items-center justify-between">
-            <span className="text-xs uppercase tracking-wide text-muted-foreground">Added</span>
+            <span className="text-xs uppercase tracking-wide text-muted-foreground">Windows</span>
             <button onClick={clearAll} className="text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground">Clear all</button>
           </div>
         )}
@@ -390,6 +556,45 @@ export function QuoteTool() {
             </div>
           )
         })}
+
+        {/* Extra services */}
+        <div className="mt-3 space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs uppercase tracking-wide text-muted-foreground">Other Services</span>
+          </div>
+          {extraLines.map((line) => (
+            <div key={line.id} className="flex items-center gap-2 rounded-xl border border-border bg-card px-3 py-2">
+              <input
+                type="text"
+                value={line.name}
+                onChange={(e) => updateExtraLine(line.id, 'name', e.target.value)}
+                placeholder="Service name (e.g. Gutters)"
+                className="flex-1 min-w-0 bg-transparent text-sm text-foreground placeholder-muted-foreground focus:outline-none"
+              />
+              <span className="text-muted-foreground text-sm">$</span>
+              <input
+                type="number"
+                inputMode="decimal"
+                value={line.price}
+                onChange={(e) => updateExtraLine(line.id, 'price', e.target.value)}
+                placeholder="0"
+                className="w-20 bg-transparent text-sm text-right text-foreground placeholder-muted-foreground focus:outline-none tabular-nums"
+              />
+              <button
+                onClick={() => removeExtraLine(line.id)}
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground"
+              >
+                <X size={14} />
+              </button>
+            </div>
+          ))}
+          <button
+            onClick={addExtraLine}
+            className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-border py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <PlusCircle size={15} /> Add service
+          </button>
+        </div>
       </div>
 
       {/* Sticky price bar */}
@@ -397,21 +602,28 @@ export function QuoteTool() {
         <div className="mb-2 flex items-end justify-between">
           <div>
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-bold text-primary heading-tighter">{quote.windowCount ? fmt(quote.total) : '$0'}</span>
-              {quote.windowCount > 0 && <span className="text-sm text-muted-foreground line-through">{fmt(quote.normalPrice)}</span>}
+              <span className="text-3xl font-bold text-primary heading-tighter">
+                {(quote.windowCount > 0 || extraTotal > 0) ? fmt(quote.total + extraTotal) : '$0'}
+              </span>
+              {quote.windowCount > 0 && extraTotal === 0 && (
+                <span className="text-sm text-muted-foreground line-through">{fmt(quote.normalPrice)}</span>
+              )}
             </div>
             {quote.windowCount > 0 && (
               <span className="text-[11px] text-muted-foreground">
-                ~${quote.impliedHourly}/hr{quote.belowMinimum ? ' · min applied' : ''}
+                Windows {fmt(quote.total)}{extraTotal > 0 ? ` + extras ${fmt(extraTotal)}` : ''}{quote.belowMinimum ? ' · min applied' : ''}
               </span>
+            )}
+            {quote.windowCount === 0 && extraTotal > 0 && (
+              <span className="text-[11px] text-muted-foreground">Extra services only</span>
             )}
           </div>
         </div>
         <button
           onClick={() => setScreen('customer')}
-          disabled={quote.windowCount === 0}
+          disabled={quote.windowCount === 0 && extraTotal === 0}
           className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-base font-semibold text-primary-foreground disabled:opacity-40 active:scale-[0.98] transition-transform"
-          style={{ boxShadow: quote.windowCount ? '0 0 20px rgba(34,197,94,0.25)' : 'none' }}
+          style={{ boxShadow: (quote.windowCount > 0 || extraTotal > 0) ? '0 0 20px rgba(34,197,94,0.25)' : 'none' }}
         >
           Continue
         </button>
