@@ -40,6 +40,8 @@ export async function updateSession(request: NextRequest) {
     pathname.startsWith('/api/auth') ||
     pathname.startsWith('/api/waitlist') ||
     pathname.startsWith('/api/beta') ||
+    // Stripe webhooks carry no session — signature verification is the auth
+    pathname.startsWith('/api/billing/webhook') ||
     pathname.startsWith('/_next') ||
     pathname.startsWith('/favicon') ||
     pathname.startsWith('/privacy') ||
