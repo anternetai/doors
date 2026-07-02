@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getStripe } from '@/lib/stripe'
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@supabase/supabase-js'
 import type Stripe from 'stripe'
+
+// Admin client — webhooks have no user session, RLS would silently block writes
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  { auth: { autoRefreshToken: false, persistSession: false } }
+)
 
 export async function POST(req: NextRequest) {
   const stripe = getStripe()
@@ -25,7 +32,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: `Webhook signature verification failed: ${message}` }, { status: 400 })
   }
 
-  const supabase = await createClient()
+  const supabase = supabaseAdmin
 
   switch (event.type) {
     case 'checkout.session.completed': {
