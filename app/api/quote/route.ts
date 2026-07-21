@@ -59,7 +59,10 @@ export async function POST(req: NextRequest) {
   try {
     const res = await fetch(`${crmUrl}/api/squeegee/from-field`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "x-bridge-secret": process.env.BRIDGE_SECRET || "",
+      },
       body: JSON.stringify({
         client_name: client_name.trim(),
         client_phone: client_phone?.trim() || undefined,

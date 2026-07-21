@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import type { DoorVisit } from '@/lib/types'
+import { bridgeDoorKnockToCrm } from '@/lib/crm-bridge'
+import type { DoorContactInfo } from '@/components/door-log-overlay'
 
 async function getTerritory(
   supabase: Awaited<ReturnType<typeof createClient>>,
@@ -76,10 +78,11 @@ export async function POST(
   }
 
   const body = await request.json()
-  const { lat, lng, visit } = body as {
+  const { lat, lng, visit, contact } = body as {
     lat: number
     lng: number
     visit: DoorVisit
+    contact?: DoorContactInfo
   }
 
   if (typeof lat !== 'number' || typeof lng !== 'number') {
@@ -106,12 +109,39 @@ export async function POST(
       status: visit ? visitToStatus(visit) : 'not_home',
       total_visits: visit ? 1 : 0,
       notes: null,
+      contact_name: contact?.name ?? null,
+      contact_phone: contact?.phone ?? null,
+      contact_address: territory.address ?? null,
     })
     .select()
     .single()
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+
+  // Bridge to the CRM — best-effort, never blocks the door save. Only fires
+  // when a contact was actually captured (name and/or phone).
+  if (contact && (contact.name?.trim() || contact.phone?.trim())) {
+    const bridged = await bridgeDoorKnockToCrm({
+      contactName: contact.name,
+      contactPhone: contact.phone,
+      contactAddress: territory.address,
+      territoryName: name,
+      doorId: door.id,
+      closed: Boolean(visit?.closed),
+      revenue: visit?.revenue ?? null,
+      notes: visit?.notes ?? null,
+    })
+    if (bridged) {
+      await supabase
+        .from('doors_territory_doors')
+        .update({ crm_client_id: bridged.client_id, crm_job_id: bridged.job_id })
+        .eq('id', door.id)
+        .eq('user_id', user.id)
+      door.crm_client_id = bridged.client_id
+      door.crm_job_id = bridged.job_id
+    }
   }
 
   return NextResponse.json(door, { status: 201 })

@@ -23,6 +23,13 @@ export interface TerritoryDoor {
   notes: string | null
   created_at: string
   updated_at: string
+  /** Optional contact captured at the door — name/phone flow into the Dr. Squeegee CRM on a close. */
+  contact_name?: string | null
+  contact_phone?: string | null
+  contact_address?: string | null
+  /** Set once this door has been bridged to a CRM client/job — prevents duplicate bridging on revisits. */
+  crm_client_id?: string | null
+  crm_job_id?: string | null
 }
 
 export interface Territory {

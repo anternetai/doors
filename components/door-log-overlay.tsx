@@ -6,17 +6,24 @@ import { PhotoCapture } from '@/components/photo-capture'
 import { PitchRecorder } from '@/components/pitch-recorder'
 import type { DoorVisit } from '@/lib/types'
 
+export interface DoorContactInfo {
+  name?: string
+  phone?: string
+}
+
 interface Props {
   lat: number
   lng: number
   isRevisit?: boolean
-  onSave: (visit: DoorVisit) => Promise<void>
+  /** Pre-fills the contact fields on a revisit — the door's saved name/phone, if any. */
+  initialContact?: DoorContactInfo
+  onSave: (visit: DoorVisit, contact?: DoorContactInfo) => Promise<void>
   onCancel: () => void
 }
 
 type Step = 1 | 2 | 3 | 4
 
-export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props) {
+export function DoorLogOverlay({ lat, lng, isRevisit, initialContact, onSave, onCancel }: Props) {
   const [step, setStep] = useState<Step>(1)
   const [saving, setSaving] = useState(false)
 
@@ -39,6 +46,8 @@ export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props)
   const [revenue, setRevenue] = useState('')
   const [photo, setPhoto] = useState<string | null>(null)
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
+  const [contactName, setContactName] = useState(initialContact?.name ?? '')
+  const [contactPhone, setContactPhone] = useState(initialContact?.phone ?? '')
 
   async function handleSave() {
     setSaving(true)
@@ -54,7 +63,11 @@ export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props)
       photo: photo ?? undefined,
       audioUrl: audioUrl ?? undefined,
     }
-    await onSave(visit)
+    const contact: DoorContactInfo | undefined =
+      contactName.trim() || contactPhone.trim()
+        ? { name: contactName.trim() || undefined, phone: contactPhone.trim() || undefined }
+        : undefined
+    await onSave(visit, contact)
     setSaving(false)
   }
 
@@ -209,6 +222,31 @@ export function DoorLogOverlay({ lat, lng, isRevisit, onSave, onCancel }: Props)
             <PhotoCapture photo={photo} onChange={setPhoto} />
 
             <PitchRecorder onRecorded={(url) => setAudioUrl(url)} />
+
+            {answered && (
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs text-muted-foreground mb-2 uppercase tracking-wide">Name (optional)</label>
+                  <input
+                    type="text"
+                    value={contactName}
+                    onChange={(e) => setContactName(e.target.value)}
+                    placeholder="Homeowner's name"
+                    className="w-full rounded-xl border border-border bg-secondary/80 px-3 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#22c55e]/60 focus:outline-none transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs text-muted-foreground mb-2 uppercase tracking-wide">Phone (optional)</label>
+                  <input
+                    type="tel"
+                    value={contactPhone}
+                    onChange={(e) => setContactPhone(e.target.value)}
+                    placeholder="(704) 555-1234"
+                    className="w-full rounded-xl border border-border bg-secondary/80 px-3 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#22c55e]/60 focus:outline-none transition-colors"
+                  />
+                </div>
+              </div>
+            )}
 
             <div>
               <label className="block text-xs text-muted-foreground mb-2 uppercase tracking-wide">Notes (optional)</label>

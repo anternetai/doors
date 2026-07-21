@@ -4,7 +4,7 @@ import { use, useEffect, useState, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowLeft, ChevronDown, ChevronUp, Info, CheckCircle, AlertTriangle, X, Trash2, Calculator } from 'lucide-react'
 import { TerritoryMap } from '@/components/territory-map'
-import { DoorLogOverlay } from '@/components/door-log-overlay'
+import { DoorLogOverlay, type DoorContactInfo } from '@/components/door-log-overlay'
 import { SessionTimer } from '@/components/session-timer'
 import type { TerritoryDoor, TerritoryKpis, Recommendation, DoorVisit } from '@/lib/types'
 
@@ -96,18 +96,18 @@ export default function TerritoryDetailPage({
     setSelectedDoor(null)
   }
 
-  async function handleSaveVisit(visit: DoorVisit) {
+  async function handleSaveVisit(visit: DoorVisit, contact?: DoorContactInfo) {
     if (!pendingDoor) return
     try {
       let res: Response
       if (pendingDoor.isRevisit && pendingDoor.door) {
-        // Add visit to existing door
+        // Add visit to existing door — contact fields (if provided/edited) update the door too.
         res = await fetch(
           `/api/territories/${encodeURIComponent(name)}/doors/${pendingDoor.door.id}`,
           {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ visit }),
+            body: JSON.stringify({ visit, contact }),
           }
         )
       } else {
@@ -119,6 +119,7 @@ export default function TerritoryDetailPage({
             lat: pendingDoor.lat,
             lng: pendingDoor.lng,
             visit,
+            contact,
           }),
         })
       }
@@ -306,6 +307,11 @@ export default function TerritoryDetailPage({
           lat={pendingDoor.lat}
           lng={pendingDoor.lng}
           isRevisit={pendingDoor.isRevisit}
+          initialContact={
+            pendingDoor.door
+              ? { name: pendingDoor.door.contact_name ?? undefined, phone: pendingDoor.door.contact_phone ?? undefined }
+              : undefined
+          }
           onSave={handleSaveVisit}
           onCancel={() => setPendingDoor(null)}
         />
