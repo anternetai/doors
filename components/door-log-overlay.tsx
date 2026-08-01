@@ -48,8 +48,20 @@ export function DoorLogOverlay({ lat, lng, isRevisit, initialContact, onSave, on
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
   const [contactName, setContactName] = useState(initialContact?.name ?? '')
   const [contactPhone, setContactPhone] = useState(initialContact?.phone ?? '')
+  const [contactError, setContactError] = useState<string | null>(null)
+
+  const hasContact = Boolean(contactName.trim() || contactPhone.trim())
 
   async function handleSave() {
+    // A close with no name and no phone is a sale you can never follow up on.
+    // Verified against live data 2026-07-31: every one of the 325 logged doors
+    // had null contact fields, so not one close ever reached the CRM — the
+    // fields were optional and sat below the fold on a phone.
+    if (closed && !hasContact) {
+      setContactError("Add a name or phone — a close needs someone to follow up with.")
+      return
+    }
+    setContactError(null)
     setSaving(true)
     const visit: DoorVisit = {
       date,
@@ -219,34 +231,52 @@ export function DoorLogOverlay({ lat, lng, isRevisit, initialContact, onSave, on
         {/* Step 4: Photo + Pitch recording + Notes + revenue */}
         {step === 4 && (
           <div className="space-y-5">
+            {/* Contact comes FIRST on this step, above the photo and the
+                recorder. It used to sit underneath both, marked optional, and
+                the result was 325 doors with no name on any of them. */}
+            {answered && (
+              <div>
+                <p className="text-sm font-semibold text-foreground mb-1 heading-tight">
+                  Who did you talk to?
+                  {closed && <span className="text-[#22c55e]"> *</span>}
+                </p>
+                <p className="text-xs text-muted-foreground mb-3">
+                  {closed
+                    ? 'Required — this is how the sale becomes a customer you can rebook.'
+                    : 'Worth grabbing even on a maybe.'}
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs text-muted-foreground mb-2 uppercase tracking-wide">Name</label>
+                    <input
+                      type="text"
+                      value={contactName}
+                      onChange={(e) => { setContactName(e.target.value); setContactError(null) }}
+                      placeholder="Homeowner's name"
+                      className="w-full rounded-xl border border-border bg-secondary/80 px-3 py-3 text-base text-foreground placeholder-muted-foreground focus:border-[#22c55e]/60 focus:outline-none transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-muted-foreground mb-2 uppercase tracking-wide">Phone</label>
+                    <input
+                      type="tel"
+                      inputMode="tel"
+                      value={contactPhone}
+                      onChange={(e) => { setContactPhone(e.target.value); setContactError(null) }}
+                      placeholder="(704) 555-1234"
+                      className="w-full rounded-xl border border-border bg-secondary/80 px-3 py-3 text-base text-foreground placeholder-muted-foreground focus:border-[#22c55e]/60 focus:outline-none transition-colors"
+                    />
+                  </div>
+                </div>
+                {contactError && (
+                  <p className="mt-2 text-xs text-destructive">{contactError}</p>
+                )}
+              </div>
+            )}
+
             <PhotoCapture photo={photo} onChange={setPhoto} />
 
             <PitchRecorder onRecorded={(url) => setAudioUrl(url)} />
-
-            {answered && (
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs text-muted-foreground mb-2 uppercase tracking-wide">Name (optional)</label>
-                  <input
-                    type="text"
-                    value={contactName}
-                    onChange={(e) => setContactName(e.target.value)}
-                    placeholder="Homeowner's name"
-                    className="w-full rounded-xl border border-border bg-secondary/80 px-3 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#22c55e]/60 focus:outline-none transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs text-muted-foreground mb-2 uppercase tracking-wide">Phone (optional)</label>
-                  <input
-                    type="tel"
-                    value={contactPhone}
-                    onChange={(e) => setContactPhone(e.target.value)}
-                    placeholder="(704) 555-1234"
-                    className="w-full rounded-xl border border-border bg-secondary/80 px-3 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-[#22c55e]/60 focus:outline-none transition-colors"
-                  />
-                </div>
-              </div>
-            )}
 
             <div>
               <label className="block text-xs text-muted-foreground mb-2 uppercase tracking-wide">Notes (optional)</label>
@@ -283,7 +313,7 @@ export function DoorLogOverlay({ lat, lng, isRevisit, initialContact, onSave, on
               </button>
               <button
                 onClick={handleSave}
-                disabled={saving}
+                disabled={saving || Boolean(closed && !hasContact)}
                 className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-[#22c55e] py-3.5 text-sm font-semibold text-[#0a0a0a] disabled:opacity-50 transition-all hover:opacity-90 active:scale-[0.98]"
                 style={{ boxShadow: saving ? 'none' : '0 0 20px rgba(34, 197, 94, 0.25)' }}
               >
